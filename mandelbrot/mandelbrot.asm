@@ -10,23 +10,40 @@
 
 	processor 6502
 	include "vcs.h"
-
+ITERATIONS = 30
 rows = 48  ; number of rows to render (two playfield bytes per row)
 mandelByteCount = 2 * rows
 
 
     SEG.U variables
     ORG $80
+
 mandelBytes  ds mandelByteCount
+zr  ds.w
+zi  ds.w
+cr  ds.w
+ci  ds.w
+y   ds.w
 
+fraction_bits ds.b
 
+zr_p_zi ds.w
+zr2_p_zi2 ds.b
+zr2_p_zi2_lo ds.b
+zr2_p_zi2_hi ds.b
+zr2_m_zi2 ds.w
+
+iterations ds.b
+;iterator_loop
 
 BLUE           = $9a         ;              define symbol for TIA color (NTSC)
 ORANGE         = $2c         
 GREEN          = $ca
 
 	seg
-	org $f000
+	org $f800
+
+    include "mandel-kernel.asm"
 
 reset:
 	; clear RAM and all TIA registers
