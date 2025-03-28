@@ -11,8 +11,10 @@
 	processor 6502
 	include "vcs.h"
 ITERATIONS = 30
-rows = 48  ; number of rows to render (two playfield bytes per row)
+rows = 32  ; number of rows to render (two playfield bytes per row)
 mandelByteCount = 2 * rows
+skipRowTimer = 192 * 76 / 64
+skipRows = 160
 
 
     SEG.U variables
@@ -36,6 +38,8 @@ zr2_m_zi2 ds.w
 iterations ds.b
 ;iterator_loop
 
+enableRender ds.b
+
 BLUE           = $9a         ;              define symbol for TIA color (NTSC)
 ORANGE         = $2c         
 GREEN          = $ca
@@ -43,6 +47,7 @@ GREEN          = $ca
 	seg
 	org $f800
 
+    include "reversed-bytes.asm"
     include "mandel-kernel.asm"
 
 reset:
@@ -59,6 +64,8 @@ clear:                       ;              define a label
 init:
     lda #03
     sta CTRLPF
+    lda #1
+    sta enableRender
     ldy #0
     lda #0
 initMandelBytes:
@@ -100,6 +107,11 @@ verticalBlank:
     sta COLUBK
 	; generate 192 lines of playfield
 
+    lda enableRender
+    beq skipRender
+    lda #0
+    sta enableRender
+
 startMandelBytes:
     ldx #0
     ldy #0
@@ -114,18 +126,37 @@ drawMandelBytes:
     sta PF2
     iny
 
+    lda #5
+    sta TIM64T
+renderRowLoop:
+    lda INTIM
+    bne renderRowLoop
+renderRowCountUp:
+    inx
+    inx
+    inx
+    inx
     inx
     sta WSYNC
-    inx
-    sta WSYNC
-    inx
-    sta WSYNC
-;    inx
-;     sta WSYNC
-;     inx
-;     sta WSYNC
     cpy #mandelByteCount
     bne drawMandelBytes
+    jmp startFooter
+
+skipRender:
+    ldx #0
+    lda #skipRowTimer
+    sta TIM64T
+    lda #1
+    sta enableRender
+loopSkipRender:
+    lda INTIM
+    sta WSYNC
+    bne loopSkipRender
+catchUpRowCount:
+    txa
+    clc
+    adc #skipRows
+    tax
 
 startFooter:
     lda #ORANGE
