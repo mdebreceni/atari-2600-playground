@@ -1,0 +1,8 @@
+# Compiled ROMs
+/**/*.rom
+
+# DASM-generated list files
+/**/*.lst
+
+# DASM-generated symbol files
+/**/*.sym
