@@ -87,9 +87,6 @@ int main(void) {
         printf("i=%d, f=%f, sq=%0.8f, sq_fp=%04x, whole_fp=%d, fract_fp=%d (%f)  %s %s ==> %s\n", 
                 i,    f,    sq,    sq_fp,      whole_fp,    fract_fp,    fract_fp / 64.0, hiBitStr, lowBitStr, printableFp );
 
-    //    squares[i] = (sq_fp << 1) | ORG_ADDR;
-        // printf("squares[%d] = 0x%04x\n", i, squares[i]);
-
     }
     return 0;
 }
