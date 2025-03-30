@@ -55,6 +55,26 @@ uint8_t* asPrintableFp(uint16_t value, uint8_t* outBuffer, int maxLen) {
     return outBuffer;
 }
 
+void makeDasmData(uint16_t *squaresTable, uint16_t count, char* label, uint16_t orgAddr) {
+    printf("; programmatically generated table of squares\n");
+    printf("; 4.6 bit fixed-point, shifted left by 1 bit\n");
+    printf("%s:", label);
+    if(orgAddr != 0xffff) {
+        printf("    ORG $%04x\n", orgAddr);
+    }
+    int offset = 0;
+    int words_per_row = 16;
+    while(offset < count) {
+        if(offset % words_per_row == 0) {
+            printf("\n    DC.b ");
+        }
+        printf("$%04x,", squaresTable[offset]);
+        printf("$%04x,", offset);
+        offset++;
+    }
+    printf("\n");
+}
+
 int main(void) {
     uint16_t squares[1024] = {0};
     uint8_t lowBitStr[9] = {0};
@@ -84,9 +104,17 @@ int main(void) {
 
         asPrintableFp(sq_fp, printableFp, 16);
 
-        printf("i=%d, f=%f, sq=%0.8f, sq_fp=%04x, whole_fp=%d, fract_fp=%d (%f)  %s %s ==> %s\n", 
-                i,    f,    sq,    sq_fp,      whole_fp,    fract_fp,    fract_fp / 64.0, hiBitStr, lowBitStr, printableFp );
+        uint16_t idx = (uint16_t) i;
+        idx &= 0x3ff;
+        printf("i=%d, f=%0.8f, idx=%d sq=%0.8f, sq_fp=%04x, whole_fp=%d, fract_fp=%d (%0.8f)  %s %s ==> %s\n", 
+                i,    f,    idx,   sq,    sq_fp,      whole_fp,    fract_fp,    fract_fp / 64.0, hiBitStr, lowBitStr, printableFp );
+        squares[idx] = sq_fp;
 
     }
+    for(int i=0; i<1024; i++) {
+        printf("%04x ", squares[i]);
+    }
+    printf("\n");
+    makeDasmData(squares, 1024, "squares", 0xffff);
     return 0;
 }
