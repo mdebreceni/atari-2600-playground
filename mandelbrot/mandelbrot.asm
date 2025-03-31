@@ -44,9 +44,11 @@ BLUE           = $9a         ;              define symbol for TIA color (NTSC)
 ORANGE         = $2c         
 GREEN          = $ca
 
-	seg
-	org $f800
-
+    SEG squares
+    ORG $f000
+    include "squares.asm"
+    SEG CODE
+    ORG $f800
     include "reversed-bytes.asm"
     include "mandel-kernel.asm"
 
@@ -188,7 +190,7 @@ draw_overscan:
 	jmp startFrame           ;              frame completed, branch up to the 'startFrame' label
 ;------------------------------------------------
 
-	org $fffa                ;              set origin to last 6 bytes of 4k rom
+	ORG $fffa                ;              set origin to last 6 bytes of 4k rom
 	
 interruptVectors:
 	.word reset              ;              nmi
