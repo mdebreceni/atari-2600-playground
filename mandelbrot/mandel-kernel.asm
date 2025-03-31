@@ -16,9 +16,10 @@ mandel:
     tya
     pha
     
+
     lda #GREEN
     sta COLUBK
-    lda #3              ; hack - one iteration at a time for easier time slicing
+    lda #ITERATIONS              ; hack - one iteration at a time for easier time slicing
     sta iterations
 iterator_loop:
     ldy #1              ; indexing with this accesses the high byte 
@@ -34,7 +35,7 @@ iterator_loop:
     adc zi, y         ; A = high(zr^2) + high(zi^2) = high(zr^2 + zi^2) 
     ;cmp #4 << (fraction_bits-8)
     ;cmp #4 << 1    ;; FIXME:  1 is a placeholder
-    ;bcs bailout
+    bcs .bailoutToInfinityAndBeyond
     sta zr2_p_zi2_hi
 
     ; Calculate zr + zi. 
@@ -94,10 +95,24 @@ iterator_loop:
     sta zi+1
 
     dec iterations
-    bne iterator_loop
+    bne .return
 
-bailout:
+    ;; if we've maxed out fall through to bailoutMaxIterations
+
+.bailoutMaxIterations:
+    ; we've reached the maximum number of iterations. This point is in the set.
     ; iterations contains the pixel colour
+    lda 0
+    sta keepIterating
+    jmp .return
+
+
+.bailoutToInfinityAndBeyond:
+    ; |z^2| > 4, so we are out of the set.
+    ; iterations contains the pixel colour
+    jmp .return
+
+.return:
     PHA
     lda #BLUE
     sta COLUBK

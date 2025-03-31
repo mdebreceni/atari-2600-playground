@@ -38,6 +38,9 @@ zr2_m_zi2 ds.w
 
 iterations ds.b
 ;iterator_loop
+keepIterating ds.b
+PF1_shadow ds.b
+PF2_shadow ds.b
 
     if FLICKERMODE
 enableRender ds.b
