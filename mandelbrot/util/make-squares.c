@@ -67,8 +67,10 @@ void makeDasmData(uint16_t *squaresTable, uint16_t count, char* label, uint16_t 
     while(offset < count) {
         if(offset % words_per_row == 0) {
             printf("\n    DC.w ");
+        } else {
+            printf(",");
         }
-        printf("$%04x,", squaresTable[offset]);
+        printf("$%04x", squaresTable[offset]);
         offset++;
     }
     printf("\n");
