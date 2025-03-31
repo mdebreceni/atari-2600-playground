@@ -8,7 +8,17 @@
 
     processor 6502
 mandel:
-    lda #ITERATIONS
+    ; push registers and state - save on stack
+    php
+    pha
+    txa
+    pha
+    tya
+    pha
+    
+    lda #GREEN
+    sta COLUBK
+    lda #3              ; hack - one iteration at a time for easier time slicing
     sta iterations
 iterator_loop:
     ldy #1              ; indexing with this accesses the high byte 
@@ -23,8 +33,8 @@ iterator_loop:
     lda zr, y         ; A = high(zr^2) 
     adc zi, y         ; A = high(zr^2) + high(zi^2) = high(zr^2 + zi^2) 
     ;cmp #4 << (fraction_bits-8)
-    cmp #4 << 1    ;; FIXME:  1 is a placeholder
-    bcs bailout
+    ;cmp #4 << 1    ;; FIXME:  1 is a placeholder
+    ;bcs bailout
     sta zr2_p_zi2_hi
 
     ; Calculate zr + zi. 
@@ -88,4 +98,16 @@ iterator_loop:
 
 bailout:
     ; iterations contains the pixel colour
+    PHA
+    lda #BLUE
+    sta COLUBK
+    PLA
+
+    ; restore saved registers and state from stack
+    PLA
+    TAY
+    PLA
+    TAX
+    PLA
+    PLP
     rts

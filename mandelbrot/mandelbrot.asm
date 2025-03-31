@@ -12,7 +12,7 @@
 	include "vcs.h"
 FLICKERMODE = 0
 ITERATIONS = 30
-rows = 32  ; number of rows to render (two playfield bytes per row)
+rows = 30  ; number of rows to render (two playfield bytes per row)
 mandelByteCount = 2 * rows
 skipRowTimer = 192 * 76 / 64
 skipRows = 160
@@ -134,12 +134,14 @@ drawMandelBytes:
     sta PF2
     iny
 
-    lda #5
+    lda #6
     sta TIM64T
+    jsr mandel
 renderRowLoop:
     lda INTIM
     bne renderRowLoop
 renderRowCountUp:
+    inx
     inx
     inx
     inx
