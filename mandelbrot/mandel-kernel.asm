@@ -94,15 +94,13 @@ iterator_loop:
     ora #$80            ; fixup 
     sta zi+1
 
-    dec iterations
-    bne .return
-
-    ;; if we've maxed out fall through to bailoutMaxIterations
+    dec iterations  
+    bne .return   ;; or fall through if we've reached 0 iterations
 
 .bailoutMaxIterations:
     ; we've reached the maximum number of iterations. This point is in the set.
     ; iterations contains the pixel colour
-    lda 0
+    lda #0
     sta keepIterating
     jmp .return
 
@@ -110,6 +108,8 @@ iterator_loop:
 .bailoutToInfinityAndBeyond:
     ; |z^2| > 4, so we are out of the set.
     ; iterations contains the pixel colour
+    lda #0
+    sta keepIterating
     jmp .return
 
 .return:

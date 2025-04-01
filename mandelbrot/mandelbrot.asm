@@ -12,7 +12,8 @@
 	include "vcs.h"
 FLICKERMODE = 0
 ITERATIONS = 30
-rows = 30  ; number of rows to render (two playfield bytes per row)
+rows = 32  ; number of rows to render (two playfield bytes per row)
+cols = 16  ; number of coloumns to render (half of a mirrored playfield using PF1 and PF2- 16 bits)
 mandelByteCount = 2 * rows
 skipRowTimer = 192 * 76 / 64
 skipRows = 160
@@ -22,33 +23,46 @@ skipRows = 160
     ORG $80
 
 mandelBytes  ds mandelByteCount
-zr  ds.w
-zi  ds.w
-cr  ds.w
-ci  ds.w
-y   ds.w
+zr  ds.w 1
+zi  ds.w 1
+cr  ds.w 1
+ci  ds.w 1
+y   ds.w 1
 
 fraction_bits ds.b
 
-zr_p_zi ds.w
-zr2_p_zi2 ds.b
-zr2_p_zi2_lo ds.b
-zr2_p_zi2_hi ds.b
-zr2_m_zi2 ds.w
+zr_p_zi ds.w 1
+zr2_p_zi2 ds.b 1
+zr2_p_zi2_lo ds.b 1
+zr2_p_zi2_hi ds.b 1
+zr2_m_zi2 ds.w 1
 
-iterations ds.b
+; starting points for Cr / Ci
+crStart ds.w 1 ;
+ciStart ds.w 1 ; 
+
+cStep ds.w   1 ; increment between iterations (both c real and c imaginary)
+
+iterations ds.b 1     ; number of remaining iterations
 ;iterator_loop
-keepIterating ds.b
-PF1_shadow ds.b
-PF2_shadow ds.b
+
+keepIterating ds.b 1  ; have we reached a final result yet?
+PF1Shadow ds.b 1     ; shadow copy of PF1 
+PF2Shadow ds.b 1     ; shadow copy of PF2 
+
+row ds.b 1            ; current column being rendered (0 .. rows)
+col ds.b 1            ; current column (0..15)   (columns 0..7 are in PF1, 8-15 are in PF2)
+pfBit ds.b 1          ; bit number of playfield to turn on
+
 
     if FLICKERMODE
-enableRender ds.b
+enableRender ds.b 1
     ENDIF
 
 BLUE           = $9a         ;              define symbol for TIA color (NTSC)
 ORANGE         = $2c         
 GREEN          = $ca
+;==============
 
     SEG squares
     ORG $f000
@@ -63,6 +77,9 @@ reset:
 	ldx #0                   ;              load the value 0 into (x)
 	lda #0                   ;              load the value 0 into (a)
 
+    sta keepIterating;
+    sta cr
+    sta crStart
 
 clear:                       ;              define a label 
 	sta 0,x                  ;              store value in (a) at address of 0 with offset (x)
@@ -79,6 +96,7 @@ init:
     ldy #0
     lda #0
 initMandelBytes:
+    ora #$f0
     sta mandelBytes,y
     iny
     tya
@@ -137,14 +155,14 @@ drawMandelBytes:
     sta PF2
     iny
 
-    lda #6
+    lda #5
     sta TIM64T
-    jsr mandel
+    jsr runNextIter;
+    
 renderRowLoop:
     lda INTIM
     bne renderRowLoop
 renderRowCountUp:
-    inx
     inx
     inx
     inx
@@ -174,7 +192,7 @@ catchUpRowCount:
 startFooter:
     lda #ORANGE
     sta COLUBK
-    lda #$00
+    lda #0
     sta PF0
     sta PF1
     sta PF2
@@ -201,10 +219,184 @@ draw_overscan:
 	jmp startFrame           ;              frame completed, branch up to the 'startFrame' label
 ;------------------------------------------------
 
-	ORG $fffa                ;              set origin to last 6 bytes of 4k rom
-	
+initMandelVars:
+; Initialize state 
+
+    lda #$00
+;mandelBytes  ds mandelByteCount
+
+; starting points for Cr / Ci
+    ;  C = -2.0 -2.0i 
+    ; 0010 000000   2.0 in fixed point
+    ; 1101 111111  1’s complement
+    ; 1110 000000   2’s complement
+    ; 11 1000 0000   0x3800  (prior)
+    ; 11 0000 0000   0x3000  (shift right by 1)
+
+; crStart ds.w  ; 
+    lda #00
+    sta crStart
+    lda #30
+    sta crStart + 1
+
+; ciStart ds.w  ; 
+    lda #00
+    sta ciStart
+    lda #30
+    sta ciStart + 1
+
+;c_step ds.w    ; increment between iterations (for both real and imaginary)
+; we want to step between -2 and 2 in 32 steps
+; 4 / 32 = 1/8 =>  0001 0010  ==> 0x12  ==> 0x24 after shifting left by one bit
+    lda #$12
+    sta cStep
+
+
+
+; initialize Zr and ic as 0
+   lda #00
+   sta zr
+   sta zr+1
+   sta zi
+   sta zi+1
+   
+;zr  ds.w
+;zi  ds.w
+;cr  ds.w
+;ci  ds.w
+;y   ds.w;
+
+
+;fraction_bits ds.b
+    lda #00
+    sta fraction_bits
+
+
+;zr_p_zi ds.w
+    sta zr_p_zi
+    sta zr_p_zi+1
+;zr2_p_zi2 ds.b
+    sta zr2_p_zi2
+;zr2_p_zi2_lo ds.b
+    sta zr2_p_zi2_lo
+;zr2_p_zi2_hi ds.b
+    sta zr2_p_zi2_hi
+;zr2_m_zi2 ds.w
+    sta zr2_m_zi2
+    sta zr2_m_zi2 + 1
+
+
+
+    rts    
+
+;iterations ds.b      ; number of remaining iterations
+    lda #1
+    sta iterations
+    sta keepIterating
+
+;iterator_loop
+
+;keepIterating ds.b   ; have we reached a final result yet?
+;PF1_shadow ds.b      ; shadow copy of PF1 
+;PF2_shadow ds.b      ; shadow copy of PF2 
+
+;row ds.b             ; current column being rendered (0 .. rows)
+;col ds.b             ; current column (0..15)   (columns 0..7 are in PF1, 8-15 are in PF2) 
+    rts
+
+updatePfbits:
+    lda col          ; which bit are we updating?
+    cmp #8
+    bcs .updatePF2    ; equal or greater than 8 -> we are in PF2
+.updatePF1:
+    lda #7
+    SEC
+    sbc col
+    sta pfBit
+    lda #1
+    asl pfBit
+    ora PF1Shadow
+    sta PF1Shadow
+
+.updatePF2:
+    SEC
+    sbc #8
+    sta pfBit
+    lda #1
+    asl pfBit
+    ora PF2Shadow
+    sta PF2Shadow     ; fixme - we have to actually update the right field in mandelbytes
+    lda iterations
+    and #$fe
+    beq .blankBit
+    
+
+.blankBit
+
+
+
+nextMandelCol:
+    lda col
+    clc 
+    adc #1
+    cmp #cols
+    beq wrapAround   ; wraparound
+    
+    sta col
+    ; note that our mandelbrot is rotated 90 degrees to take advantage of a mirrored playfield
+    ; therefore each column means we increment in the imaginary direction
+    lda ci
+    CLC
+    adc #cStep   ; update c to next step in imaginary direction
+    sta ci
+    
+    lda #ci+1
+    clc
+    adc #cStep + 1
+    sta ci + 1
+    
+    rts
+    
+wrapAround:   ; move cursor back to start of row
+    lda #0     ; reset to first column
+    sta col
+    
+    lda ciStart   ; reset low and high byte of c (imaginary axis)
+    sta ci
+    lda ciStart+1
+    sta ci+1
+    ; fall through to nextMandelRow
+
+nextMandelRow:  ; move cursor to next row
+    lda row
+    clc 
+    adc #1      ; increment cursor row
+    sta row
+
+
+    lda cr      ; add one step to c (lo and then hi)
+    clc
+    adc cStep
+    sta cr
+
+    lda cr+1
+    CLC
+    adc cStep + 1
+    sta cr+1
+
+    rts  
+
+
+
+runNextIter:        ; run next mandelbrot iteration
+    jsr mandel
+    rts
+
+
+;; this has to be at end of code so that it's at the top of memory
+    ORG $fffa                ;              set origin to last 6 bytes of 4k rom
 interruptVectors:
 	.word reset              ;              nmi
 	.word reset              ;              reset
 	.word reset              ;              irq
-
+;; no code beyond this point.
