@@ -305,10 +305,15 @@ initMandelVars:
     rts
 
 updatePfbits:
+    lda row
+    asl row
+    tay              ; y should index to PF1 mandelbyte for current row (PF1)
+
     lda col          ; which bit are we updating?
     cmp #8
     bcs .updatePF2    ; equal or greater than 8 -> we are in PF2
-.updatePF1:
+.updatePF1:          ; PF1:  col 01234567 --> bit 76543210
+; col 0 -> bit 7, col 1 -> bit 6, etc
     lda #7
     SEC
     sbc col
@@ -317,23 +322,26 @@ updatePfbits:
     asl pfBit
     ora PF1Shadow
     sta PF1Shadow
+    sta mandelBytes,Y
 
-.updatePF2:
+.updatePF2:          ;  PF2:   col 89abcdef --> bit 01234567
     SEC
-    sbc #8
+    sbc #8            ; PF2 bits are in opposite direction of PF1
+                      ; col 8 -> bit 0, col 9 -> bit 1, etc.  
     sta pfBit
     lda #1
     asl pfBit
     ora PF2Shadow
     sta PF2Shadow     ; fixme - we have to actually update the right field in mandelbytes
-    lda iterations
-    and #$fe
-    beq .blankBit
+    INY               ; one more byte to point at PF2
+    sta mandelBytes,y 
+
+;.blankBitPF1
+
+;.blankBitPF2
+
+    rts  ; seems like we should return here?
     
-
-.blankBit
-
-
 
 nextMandelCol:
     lda col
