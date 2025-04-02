@@ -94,12 +94,15 @@ init:
     ldy #0
     lda #0
 initMandelBytes:
-    ora #$f0
+    ; ora #$f0
+    lda #0
     sta mandelBytes,y
     iny
     tya
     cpy #mandelByteCount
     bne initMandelBytes
+
+    jsr initMandelVars
 
 startFrame:
 	; start of new frame
@@ -171,7 +174,7 @@ renderRowCountUp:
     bne drawMandelBytes
     jmp startFooter
     IF FLICKERMODE
-skipRender:
+skipRender: ; only if FLICKERMODE is enabled.
     ldx #0
     lda #skipRowTimer
     sta TIM64T
@@ -217,75 +220,6 @@ draw_overscan:
 	jmp startFrame           ;              frame completed, branch up to the 'startFrame' label
 ;------------------------------------------------
 
-initMandelVars:
-; Initialize state 
-
-    lda #$00
-;mandelBytes  ds mandelByteCount
-
-; starting points for Cr / Ci
-    ;  C = -2.0 -2.0i 
-    ; 0010 000000   2.0 in fixed point
-    ; 1101 111111  1’s complement
-    ; 1110 000000   2’s complement
-    ; 11 1000 0000   0x3800  (prior)
-    ; 11 0000 0000   0x3000  (shift right by 1)
-
-; crStart ds.w  ; 
-    lda #00
-    sta crStart
-    lda #30
-    sta crStart + 1
-
-; ciStart ds.w  ; 
-    lda #00
-    sta ciStart
-    lda #30
-    sta ciStart + 1
-
-;c_step ds.w    ; increment between iterations (for both real and imaginary)
-; we want to step between -2 and 2 in 32 steps
-; 4 / 32 = 1/8 =>  0001 0010  ==> 0x12  ==> 0x24 after shifting left by one bit
-    lda #$12
-    sta cStep
-
-
-
-; initialize Zr and ic as 0
-   lda #00
-   sta zr
-   sta zr+1
-   sta zi
-   sta zi+1
-   
-;zr  ds.w
-;zi  ds.w
-;cr  ds.w
-;ci  ds.w
-;y   ds.w;
-
-
-;fraction_bits ds.b
-    lda #00
-    sta fraction_bits
-
-
-;zr_p_zi ds.w
-    sta zr_p_zi
-    sta zr_p_zi+1
-;zr2_p_zi2 ds.b
-    sta zr2_p_zi2
-;zr2_p_zi2_lo ds.b
-    sta zr2_p_zi2_lo
-;zr2_p_zi2_hi ds.b
-    sta zr2_p_zi2_hi
-;zr2_m_zi2 ds.w
-    sta zr2_m_zi2
-    sta zr2_m_zi2 + 1
-
-
-
-    rts    
 
 ;iterations ds.b      ; number of remaining iterations
     lda #1
@@ -300,7 +234,7 @@ initMandelVars:
 ;col ds.b             ; current column (0..15)   (columns 0..7 are in PF1, 8-15 are in PF2) 
     rts
 
-updatePfbits:
+updatePfBits:
     PUSH_REGISTERS
 
     lda row
@@ -349,9 +283,71 @@ updatePfbits:
     POP_REGISTERS
     rts  ; seems like we should return here?
     
+initMandelVars:
+; Initialize state 
+    PUSH_REGISTERS
+    lda #$00
+; set row and column
+    sta row
+    sta col
 
-nextMandelCol:
+; starting points for Cr / Ci
+    ;  C = -2.0 -2.0i 
+    ; 0010 000000   2.0 in fixed point
+    ; 1101 111111  1’s complement
+    ; 1110 000000   2’s complement
+    ; 11 1000 0000   0x3800  (prior)
+    ; 11 0000 0000   0x3000  (shift right by 1)
+; crStart ds.w  ; 
+    ldy #1  ; use index to reach high byte
+    lda #0
+    sta crStart
+    lda #30
+    sta crStart,y
+
+; ciStart ds.w  ;
+    lda #0
+    sta ciStart
+    lda #30
+    sta ciStart,y
+
+;c_step ds.w    ; increment between iterations (for both real and imaginary)
+; we want to step between -2 and 2 in 32 steps
+; 4 / 32 = 1/8 =>  0001 0010  ==> 0x12  ==> 0x24 after shifting left by one bit
+    lda #$12
+    sta cStep
+
+; initialize Zr and Zi as 0
+    lda #0
+    sta zr
+    sta zr,y
+    sta zi
+    sta zi,Y 
+   
+   
+; clear intermediate values
+;fraction_bits ds.b
+    lda #00
+    sta fraction_bits
+;zr_p_zi ds.w
+    sta zr_p_zi
+    sta zr_p_zi,y
+;zr2_p_zi2 ds.b
+    sta zr2_p_zi2
+;zr2_p_zi2_lo ds.b
+    sta zr2_p_zi2_lo
+;zr2_p_zi2_hi ds.b
+    sta zr2_p_zi2_hi
+;zr2_m_zi2 ds.w
+    sta zr2_m_zi2
+    sta zr2_m_zi2,y
+    POP_REGISTERS
+    rts    
+
+nextMandelCol:   ; advance to next colum (i axis). Advance Ci by one step. Wraparound if needed.
+    PUSH_REGISTERS
     lda col
+    ldy 1
     clc 
     adc #1
     cmp #cols
@@ -365,21 +361,21 @@ nextMandelCol:
     adc #cStep   ; update c to next step in imaginary direction
     sta ci
     
-    lda #ci+1
+    lda #ci,y
     clc
-    adc #cStep + 1
-    sta ci + 1
-    
+    adc cStep,y
+    sta ci,y
+    POP_REGISTERS
     rts
     
-wrapAround:   ; move cursor back to start of row
+wrapAround:   ; move cursor back to start of row, advance to next row.  Reset Ci to start, and advance Cr by one step
     lda #0     ; reset to first column
     sta col
     
     lda ciStart   ; reset low and high byte of c (imaginary axis)
     sta ci
-    lda ciStart+1
-    sta ci+1
+    lda ciStart,y
+    sta ci,y
     ; fall through to nextMandelRow
 
 nextMandelRow:  ; move cursor to next row
@@ -394,17 +390,30 @@ nextMandelRow:  ; move cursor to next row
     adc cStep
     sta cr
 
-    lda cr+1
+    lda cr,y
     CLC
-    adc cStep + 1
-    sta cr+1
+    adc cStep,y
+    sta cr,y
 
+    POP_REGISTERS
     rts  
 
-
-
 runNextIter:        ; run next mandelbrot iteration
+    lda row
+    cmp #rows
+    beq .runNextIter_bailout   ; skip if we're out of rows to render
+
     jsr mandel
+
+    lda keepIterating          ; do we have a result?  If not, bail out
+    bne .runNextIter_bailout
+.runNextIter_render            ; we have a thing to render
+    jsr updatePfBits
+
+.runNextIter_setNextIter
+    jsr nextMandelCol
+
+.runNextIter_bailout
     rts
 
 

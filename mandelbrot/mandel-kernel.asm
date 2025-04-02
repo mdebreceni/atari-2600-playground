@@ -29,6 +29,7 @@ iterator_loop:
     adc zi, y         ; A = high(zr^2) + high(zi^2) = high(zr^2 + zi^2) 
     ;cmp #4 << (fraction_bits-8)
     ;cmp #4 << 1    ;; FIXME:  1 is a placeholder
+    cmp #2
     bcs .bailoutToInfinityAndBeyond
     sta zr2_p_zi2_hi
 
