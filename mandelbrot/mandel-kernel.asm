@@ -9,13 +9,7 @@
     processor 6502
 mandel:
     ; push registers and state - save on stack
-    php
-    pha
-    txa
-    pha
-    tya
-    pha
-    
+    PUSH_REGISTERS
 
     lda #GREEN
     sta COLUBK
@@ -119,10 +113,5 @@ iterator_loop:
     PLA
 
     ; restore saved registers and state from stack
-    PLA
-    TAY
-    PLA
-    TAX
-    PLA
-    PLP
+    POP_REGISTERS
     rts
