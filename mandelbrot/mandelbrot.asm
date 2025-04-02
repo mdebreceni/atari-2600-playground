@@ -47,8 +47,6 @@ iterations ds.b 1     ; number of remaining iterations
 ;iterator_loop
 
 keepIterating ds.b 1  ; have we reached a final result yet?
-PF1Shadow ds.b 1     ; shadow copy of PF1 
-PF2Shadow ds.b 1     ; shadow copy of PF2 
 
 row ds.b 1            ; current column being rendered (0 .. rows)
 col ds.b 1            ; current column (0..15)   (columns 0..7 are in PF1, 8-15 are in PF2)
@@ -297,14 +295,14 @@ initMandelVars:
 ;iterator_loop
 
 ;keepIterating ds.b   ; have we reached a final result yet?
-;PF1_shadow ds.b      ; shadow copy of PF1 
-;PF2_shadow ds.b      ; shadow copy of PF2 
 
 ;row ds.b             ; current column being rendered (0 .. rows)
 ;col ds.b             ; current column (0..15)   (columns 0..7 are in PF1, 8-15 are in PF2) 
     rts
 
 updatePfbits:
+    PUSH_REGISTERS
+
     lda row
     asl row
     tay              ; y should index to PF1 mandelbyte for current row (PF1)
@@ -320,8 +318,13 @@ updatePfbits:
     sta pfBit
     lda #1
     asl pfBit
-    ora PF1Shadow
-    sta PF1Shadow
+.setBitPF1
+    ora mandelBytes,Y
+    sta mandelBytes,Y
+    jmp .bailOutUpdateBits
+.clearBitPF1
+    eor #$FF
+    and mandelBytes,Y
     sta mandelBytes,Y
 
 .updatePF2:          ;  PF2:   col 89abcdef --> bit 01234567
@@ -331,15 +334,19 @@ updatePfbits:
     sta pfBit
     lda #1
     asl pfBit
-    ora PF2Shadow
-    sta PF2Shadow     ; fixme - we have to actually update the right field in mandelbytes
-    INY               ; one more byte to point at PF2
-    sta mandelBytes,y 
+    iny               ; we want the mandelByte after PF1 for this row
+.setBitPF2
+    ora mandelBytes,Y
+    sta mandelBytes,Y
+    jmp .bailOutUpdateBits
+.clearBitPF2
+    eor #$FF
+    and mandelBytes,Y
+    sta mandelBytes,Y
+    jmp .bailOutUpdateBits
 
-;.blankBitPF1
-
-;.blankBitPF2
-
+.bailOutUpdateBits
+    POP_REGISTERS
     rts  ; seems like we should return here?
     
 
@@ -408,3 +415,21 @@ interruptVectors:
 	.word reset              ;              reset
 	.word reset              ;              irq
 ;; no code beyond this point.
+
+    MACRO PUSH_REGISTERS
+        PHA
+        TYA
+        PHA
+        TXA
+        PHA
+        PHP
+    ENDM
+
+    MACRO POP_REGISTERS
+        PLP
+        PLA
+        TAX
+        PLA
+        TAY
+        PLA
+    ENDM
