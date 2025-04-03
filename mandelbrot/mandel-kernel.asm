@@ -8,13 +8,35 @@
 
     processor 6502
 mandel:
-    ; push registers and state - save on stack
     PUSH_REGISTERS
-
     lda #GREEN
     sta COLUBK
-    lda #ITERATIONS              ; hack - one iteration at a time for easier time slicing
+
+    /*
+    lda #3
+    sta col
+    lda #5
+    sta row
+*/
+    lda #1
     sta iterations
+
+    lda #0
+    sta keepIterating
+
+    lda #BLUE
+    sta COLUBK
+    POP_REGISTERS
+    rts
+
+x_mandel:
+    ; push registers and state - save on stack
+    PUSH_REGISTERS
+    lda #GREEN
+    sta COLUBK
+
+    ; lda #ITERATIONS              ; hack - one iteration at a time for easier time slicing
+    ; sta iterations
 iterator_loop:
     ldy #1              ; indexing with this accesses the high byte 
 
@@ -39,11 +61,11 @@ iterator_loop:
     lda zr+0            ; A = low(zr) 
     adc zi+0            ; A = low(zr + zi) 
     sta zr_p_zi+0
-    lda zr+1            ; A = high(zr) 
-    adc zi+1            ; A = high(zr + zi) + C 
+    lda zr,y            ; A = high(zr) 
+    adc zi,y            ; A = high(zr + zi) + C 
     and #$3F
     ora #$80            ; fixup 
-    sta zr_p_zi+1
+    sta zr_p_zi,y
 
     ; Calculate zr^2 - zi^2. 
 
@@ -53,7 +75,7 @@ iterator_loop:
     tax
     lda zr, y         ; A = high(zr^2) 
     sbc zi, y         ; A = high(zr^2 - zi^2) 
-    sta zr2_m_zi2+1 
+    sta zr2_m_zi2,y
 
     ; Calculate zr = (zr^2 - zi^2) + cr. 
 
@@ -61,20 +83,20 @@ iterator_loop:
     txa
     adc cr+0            ; A = low(zr^2 - zi^2 + cr) 
     sta zr+0
-    lda zr2_m_zi2+1     ; A = high(zr^2 - zi^2) 
-    adc cr+1            ; A = high(zr^2 - zi^2 + cr) 
+    lda zr2_m_zi2,y     ; A = high(zr^2 - zi^2) 
+    adc cr,y            ; A = high(zr^2 - zi^2 + cr) 
     and #$3F
     ora #$80            ; fixup 
-    sta zr+1
+    sta zr,y
 
     ; Calculate zi' = (zr+zi)^2 - (zr^2 + zi^2). 
 
     sec
     lda zr_p_zi       ; A = low((zr + zi)^2) 
-    sbc zr2_p_zi2+0     ; A = low((zr + zi)^2 - (zr^2 + zi^2)) 
+    sbc zr2_p_zi2_lo     ; A = low((zr + zi)^2 - (zr^2 + zi^2)) 
     tax
     lda zr_p_zi, y    ; A = high((zr + zi)^2) 
-    sbc zr2_p_zi2+1     ; A = high((zr + zi)^2 - (zr^2 + zi^2)) 
+    sbc zr2_p_zi2_hi     ; A = high((zr + zi)^2 - (zr^2 + zi^2)) 
     tay
 
     ; Calculate zi = zi' + ci. 
@@ -84,10 +106,10 @@ iterator_loop:
     adc ci+0
     sta zi+0
     tya
-    adc ci+1
+    adc ci,y
     and #$3F
     ora #$80            ; fixup 
-    sta zi+1
+    sta zi,y
 
     dec iterations  
     bne .return   ;; or fall through if we've reached 0 iterations

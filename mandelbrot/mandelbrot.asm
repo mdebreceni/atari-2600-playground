@@ -11,7 +11,7 @@
 	processor 6502
 	include "vcs.h"
 FLICKERMODE = 0
-ITERATIONS = 30
+MAX_ITERATIONS = 30
 rows = 32  ; number of rows to render (two playfield bytes per row)
 cols = 16  ; number of coloumns to render (half of a mirrored playfield using PF1 and PF2- 16 bits)
 mandelByteCount = 2 * rows
@@ -29,10 +29,8 @@ cr  ds.w 1
 ci  ds.w 1
 y   ds.w 1
 
-fraction_bits ds.b
-
 zr_p_zi ds.w 1
-zr2_p_zi2 ds.b 1
+;zr2_p_zi2 ds.b 1
 zr2_p_zi2_lo ds.b 1
 zr2_p_zi2_hi ds.b 1
 zr2_m_zi2 ds.w 1
@@ -50,7 +48,7 @@ keepIterating ds.b 1  ; have we reached a final result yet?
 
 row ds.b 1            ; current column being rendered (0 .. rows)
 col ds.b 1            ; current column (0..15)   (columns 0..7 are in PF1, 8-15 are in PF2)
-pfBit ds.b 1          ; bit number of playfield to turn on
+pfBitMask ds.b 1          ; bit number of playfield to turn on
 
 
     if FLICKERMODE
@@ -70,15 +68,13 @@ GREEN          = $ca
     include "reversed-bytes.asm"
     include "mandel-kernel.asm"
 
+pf1SetBitMask dc.b $01, $02, $04, $08, $10, $20, $40, $80
+pf2SetBitMask dc.b $80, $40, $20, $10, $08, $04, $02, $01
+
 reset:
 	; clear RAM and all TIA registers
 	ldx #0                   ;              load the value 0 into (x)
 	lda #0                   ;              load the value 0 into (a)
-
-    sta keepIterating;
-    sta cr
-    sta crStart
-
 clear:                       ;              define a label 
 	sta 0,x                  ;              store value in (a) at address of 0 with offset (x)
 	inx                      ;              inc (x) by 1. it will count to 255 then rollover to 0
@@ -238,42 +234,57 @@ updatePfBits:
     PUSH_REGISTERS
 
     lda row
-    asl row
+    asl              ; row * 2 -> address for PF1 bit - we will then transfer this to y
     tay              ; y should index to PF1 mandelbyte for current row (PF1)
 
     lda col          ; which bit are we updating?
     cmp #8
     bcs .updatePF2    ; equal or greater than 8 -> we are in PF2
 .updatePF1:          ; PF1:  col 01234567 --> bit 76543210
-; col 0 -> bit 7, col 1 -> bit 6, etc
+    ; col 0 -> bit 7, col 1 -> bit 6, etc
     lda #7
     SEC
-    sbc col
-    sta pfBit
-    lda #1
-    asl pfBit
+    sbc col          ; 7 - col -> bit number to flip.  We'll put this in X, since Y is taken
+    tax            
+    lda pf1SetBitMask,x  ; look up a bit mask that enables the selected bit
+    sta pfBitMask
+.setOrClearPF1
+    lda iterations
+    cmp #0
+    beq .clearBitPF1
 .setBitPF1
+    lda pfBitMask          ; should have only 1 bit set
     ora mandelBytes,Y
     sta mandelBytes,Y
     jmp .bailOutUpdateBits
 .clearBitPF1
-    eor #$FF
-    and mandelBytes,Y
+    lda pfBitMask          ; should start with only 1 bit set
+    eor #$FF           ; invert all bits
+    and mandelBytes,Y  ; clear only the bit that is off
     sta mandelBytes,Y
+    jmp .bailOutUpdateBits
 
 .updatePF2:          ;  PF2:   col 89abcdef --> bit 01234567
-    SEC
-    sbc #8            ; PF2 bits are in opposite direction of PF1
-                      ; col 8 -> bit 0, col 9 -> bit 1, etc.  
-    sta pfBit
-    lda #1
-    asl pfBit
     iny               ; we want the mandelByte after PF1 for this row
+    SEC
+    sbc #8            ; gives bit offset in PF2 (from leftmost displayed bit)
+                      ; PF2 bits are in opposite direction of PF1
+                      ; col 8 -> bit 0, col 9 -> bit 1, etc.  
+    tax
+    lda pf2SetBitMask,X
+    sta pfBitMask   
+
+.setOrClearPF2
+    lda iterations
+    cmp #0
+    beq .clearBitPF2
 .setBitPF2
+    lda pfBitMask
     ora mandelBytes,Y
     sta mandelBytes,Y
     jmp .bailOutUpdateBits
 .clearBitPF2
+    lda pfBitMask
     eor #$FF
     and mandelBytes,Y
     sta mandelBytes,Y
@@ -328,12 +339,11 @@ initMandelVars:
 ; clear intermediate values
 ;fraction_bits ds.b
     lda #00
-    sta fraction_bits
 ;zr_p_zi ds.w
     sta zr_p_zi
     sta zr_p_zi,y
 ;zr2_p_zi2 ds.b
-    sta zr2_p_zi2
+;    sta zr2_p_zi2
 ;zr2_p_zi2_lo ds.b
     sta zr2_p_zi2_lo
 ;zr2_p_zi2_hi ds.b
