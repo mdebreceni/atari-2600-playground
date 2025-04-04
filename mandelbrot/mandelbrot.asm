@@ -17,6 +17,15 @@ mandelByteCount = 2 * rows
 skipRowTimer = 192 * 76 / 64
 skipRows = 160
 
+TASK_IDLE      = $03
+TASK_ITERATE   = $01
+TASK_UPDATEPF  = $02
+TASK_SETUP_NEXT_ITERATION = $03
+
+BLUE           = $9a         ;              define symbol for TIA color (NTSC)
+ORANGE         = $2c
+GREEN          = $ca
+
 
     SEG.U variables
     ORG $80
@@ -44,14 +53,13 @@ iterations ds.b 1     ; number of remaining iterations
 ;iterator_loop
 
 keepIterating ds.b 1  ; have we reached a final result yet?
+activeTask ds.b 1           ; active task
 
 row ds.b 1            ; current column being rendered (0 .. rows)
 col ds.b 1            ; current column (0..15)   (columns 0..7 are in PF1, 8-15 are in PF2)
 pfBitMask ds.b 1          ; bit number of playfield to turn on
 
-BLUE           = $9a         ;              define symbol for TIA color (NTSC)
-ORANGE         = $2c         
-GREEN          = $ca
+
 ;==============
 
     SEG squares
@@ -89,6 +97,9 @@ initMandelBytes:
     bne initMandelBytes
 
     jsr initMandelVars
+    lda #TASK_ITERATE
+    sta activeTask
+
 
 startFrame:
 	; start of new frame
@@ -138,18 +149,19 @@ drawMandelBytes:
 
     lda #5
     sta TIM64T
-    jsr runNextIter;
+    jsr runActiveTask
     
 renderRowLoop:
     lda INTIM
     bne renderRowLoop
 renderRowCountUp:
-    inx
-    inx
-    inx
-    inx
-    inx
+    lda #0
     sta WSYNC
+    inx
+    inx
+    inx
+    inx
+    inx
     cpy #mandelByteCount
     bne drawMandelBytes
 
@@ -196,7 +208,7 @@ draw_overscan:
 ;row ds.b             ; current column being rendered (0 .. rows)
 ;col ds.b             ; current column (0..15)   (columns 0..7 are in PF1, 8-15 are in PF2) 
     rts
-
+    brk
 updatePfBits:
     PUSH_REGISTERS
 
@@ -301,6 +313,11 @@ initMandelVars:
     sta zr,y
     sta zi
     sta zi,Y 
+
+    lda #MAX_ITERATIONS
+    sta iterations
+    lda #1
+    sta keepIterating
    
    
 ; clear intermediate values
@@ -375,19 +392,70 @@ nextMandelRow:  ; move cursor to next row
     POP_REGISTERS
     rts  
 
+runActiveTask:
+    PHA
+    lda activeTask
+
+.checkTask_iterate
+    cmp #TASK_ITERATE
+    bne .checkTask_updatePF
+    jsr runNextIter
+    lda #keepIterating
+    cmp #1
+    beq .runActiveTask_bailout
+    lda #TASK_UPDATEPF
+    sta activeTask
+    jmp .runActiveTask_bailout
+
+.checkTask_updatePF
+    cmp #TASK_UPDATEPF
+    bne .checkTask_setup_next_iteration
+    jsr updatePfBits
+    lda #TASK_SETUP_NEXT_ITERATION
+    sta activeTask
+    jmp .runActiveTask_bailout
+
+.checkTask_setup_next_iteration
+    cmp #TASK_SETUP_NEXT_ITERATION
+    bne .checkTask_idle
+    jsr nextMandelCol
+    lda #MAX_ITERATIONS
+    sta iterations
+    lda #1
+    sta keepIterating
+    lda #TASK_ITERATE
+    sta activeTask
+    jmp .runActiveTask_bailout
+
+.checkTask_idle
+    cmp #TASK_IDLE
+    jmp .runActiveTask_bailout
+
+.runActiveTask_bailout 
+    PLA
+    rts
+
 runNextIter:        ; run next mandelbrot iteration
     lda row
     cmp #rows
-    beq .runNextIter_bailout   ; skip if we're out of rows to render
+    bne .runNextIter_iterate   ; skip if we're out of rows to render
+.runNextIter_doneIterating
+    lda #0
+    sta keepIterating
+    lda #TASK_IDLE
+    sta activeTask
+    jmp .runNextIter_bailout
 
+.runNextIter_iterate
     jsr mandel
     lda keepIterating          ; do we have a result?  If not, bail out
     bne .runNextIter_bailout
 .runNextIter_render            ; we have a thing to render
-    jsr updatePfBits
+    lda #TASK_UPDATEPF
+    sta activeTask
 
-.runNextIter_setNextIter
-    jsr nextMandelCol
+;.runNextIter_setNextIter
+;    jsr nextMandelCol
 
 .runNextIter_bailout
     rts
