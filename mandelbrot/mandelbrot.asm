@@ -10,7 +10,6 @@
 
 	processor 6502
 	include "vcs.h"
-FLICKERMODE = 0
 MAX_ITERATIONS = 30
 rows = 32  ; number of rows to render (two playfield bytes per row)
 cols = 16  ; number of coloumns to render (half of a mirrored playfield using PF1 and PF2- 16 bits)
@@ -50,11 +49,6 @@ row ds.b 1            ; current column being rendered (0 .. rows)
 col ds.b 1            ; current column (0..15)   (columns 0..7 are in PF1, 8-15 are in PF2)
 pfBitMask ds.b 1          ; bit number of playfield to turn on
 
-
-    if FLICKERMODE
-enableRender ds.b 1
-    ENDIF
-
 BLUE           = $9a         ;              define symbol for TIA color (NTSC)
 ORANGE         = $2c         
 GREEN          = $ca
@@ -83,10 +77,6 @@ clear:                       ;              define a label
 init:
     lda #03
     sta CTRLPF
-    IF FLICKERMODE
-    lda #1
-    sta enableRender
-    ENDIF
     ldy #0
     lda #0
 initMandelBytes:
@@ -131,12 +121,6 @@ verticalBlank:
     lda #BLUE
     sta COLUBK
 	; generate 192 lines of playfield
-    IF FLICKERMODE
-    lda enableRender
-    beq skipRender
-    lda #0
-    sta enableRender
-    ENDIF
 
 startMandelBytes:
     ldx #0
@@ -168,24 +152,7 @@ renderRowCountUp:
     sta WSYNC
     cpy #mandelByteCount
     bne drawMandelBytes
-    jmp startFooter
-    IF FLICKERMODE
-skipRender: ; only if FLICKERMODE is enabled.
-    ldx #0
-    lda #skipRowTimer
-    sta TIM64T
-    lda #1
-    sta enableRender
-loopSkipRender:
-    lda INTIM
-    sta WSYNC
-    bne loopSkipRender
-catchUpRowCount:
-    txa
-    clc
-    adc #skipRows
-    tax
-    ENDIF
+
 startFooter:
     lda #ORANGE
     sta COLUBK
@@ -414,7 +381,6 @@ runNextIter:        ; run next mandelbrot iteration
     beq .runNextIter_bailout   ; skip if we're out of rows to render
 
     jsr mandel
-
     lda keepIterating          ; do we have a result?  If not, bail out
     bne .runNextIter_bailout
 .runNextIter_render            ; we have a thing to render
