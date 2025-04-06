@@ -10,13 +10,12 @@
 
 	processor 6502
 	include "vcs.h"
-MAX_ITERATIONS = 30
-rows = 32  ; number of rows to render (two playfield bytes per row)
+MAX_ITERATIONS = 32
+rows = 30  ; number of rows to render (two playfield bytes per row)
 cols = 16  ; number of coloumns to render (half of a mirrored playfield using PF1 and PF2- 16 bits)
 mandelByteCount = 2 * rows
-skipRowTimer = 192 * 76 / 64
-skipRows = 160
-
+scanlines_per_row = 5
+tim64_clocks_per_row = 5
 TASK_IDLE      = $03
 TASK_ITERATE   = $01
 TASK_UPDATEPF  = $02
@@ -58,7 +57,7 @@ activeTask ds.b 1           ; active task
 row ds.b 1            ; current column being rendered (0 .. rows)
 col ds.b 1            ; current column (0..15)   (columns 0..7 are in PF1, 8-15 are in PF2)
 pfBitMask ds.b 1          ; bit number of playfield to turn on
-
+xScratch ds.b 1
 
 ;==============
 
@@ -147,7 +146,7 @@ drawMandelBytes:
     sta PF2
     iny
 
-    lda #5
+    lda #tim64_clocks_per_row
     sta TIM64T
     jsr runActiveTask
     
@@ -157,11 +156,9 @@ renderRowLoop:
 renderRowCountUp:
     lda #0
     sta WSYNC
+    REPEAT scanlines_per_row
     inx
-    inx
-    inx
-    inx
-    inx
+    REPEND
     cpy #mandelByteCount
     bne drawMandelBytes
 
@@ -195,20 +192,6 @@ draw_overscan:
 	jmp startFrame           ;              frame completed, branch up to the 'startFrame' label
 ;------------------------------------------------
 
-
-;iterations ds.b      ; number of remaining iterations
-    lda #1
-    sta iterations
-    sta keepIterating
-
-;iterator_loop
-
-;keepIterating ds.b   ; have we reached a final result yet?
-
-;row ds.b             ; current column being rendered (0 .. rows)
-;col ds.b             ; current column (0..15)   (columns 0..7 are in PF1, 8-15 are in PF2) 
-    rts
-    brk
 updatePfBits:
     PUSH_REGISTERS
 
@@ -287,25 +270,29 @@ initMandelVars:
     ; 1101 111111  1’s complement
     ; 1110 000000   2’s complement
     ; 11 1000 0000   0x3800  (prior)
-    ; 11 0000 0000   0x3000  (shift right by 1)
+    ; 11 0000 0000   0x300  (shift right by 1)
 ; crStart ds.w  ; 
     ldy #1  ; use index to reach high byte
-    lda #0
+    lda #$00
     sta crStart
-    lda #30
+    lda #$F3
     sta crStart,y
 
 ; ciStart ds.w  ;
-    lda #0
+    lda #$00
     sta ciStart
-    lda #30
+    lda #$F3
     sta ciStart,y
 
 ;c_step ds.w    ; increment between iterations (for both real and imaginary)
 ; we want to step between -2 and 2 in 32 steps
-; 4 / 32 = 1/8 =>  0001 0010  ==> 0x12  ==> 0x24 after shifting left by one bit
-    lda #$12
+; 4 / 32 = 1/8 =>    'xxxx00 0000 001000' ==> 
+;              =>     xxxx00 00 00010000  == 0x0010
+;  0001 0010  ==> 0x12  ==> 0x24 after shifting left by one bit
+    lda #$10
     sta cStep
+    lda #$00
+    sta cStep,y
 
 ; initialize Zr and Zi as 0
     lda #0
@@ -340,14 +327,16 @@ initMandelVars:
 
 nextMandelCol:   ; advance to next colum (i axis). Advance Ci by one step. Wraparound if needed.
     PUSH_REGISTERS
-    lda col
     ldy 1
-    clc 
-    adc #1
+;    lda col
+;    clc 
+;    adc #1
+    inc col
+    lda col
     cmp #cols
     beq wrapAround   ; wraparound
     
-    sta col
+    ;   sta col
     ; note that our mandelbrot is rotated 90 degrees to take advantage of a mirrored playfield
     ; therefore each column means we increment in the imaginary direction
     lda ci
@@ -355,7 +344,7 @@ nextMandelCol:   ; advance to next colum (i axis). Advance Ci by one step. Wrapa
     adc #cStep   ; update c to next step in imaginary direction
     sta ci
     
-    lda #ci,y
+    lda ci,y
     clc
     adc cStep,y
     sta ci,y
@@ -373,11 +362,12 @@ wrapAround:   ; move cursor back to start of row, advance to next row.  Reset Ci
     ; fall through to nextMandelRow
 
 nextMandelRow:  ; move cursor to next row
-    lda row
-    clc 
-    adc #1      ; increment cursor row
-    sta row
-
+    inc row
+;    lda row
+;    clc 
+;    inc row
+;    adc #1      ; increment cursor row
+;    sta row
 
     lda cr      ; add one step to c (lo and then hi)
     clc
@@ -393,7 +383,7 @@ nextMandelRow:  ; move cursor to next row
     rts  
 
 runActiveTask:
-    PHA
+    PUSH_REGISTERS
     lda activeTask
 
 .checkTask_iterate
@@ -418,6 +408,18 @@ runActiveTask:
 .checkTask_setup_next_iteration
     cmp #TASK_SETUP_NEXT_ITERATION
     bne .checkTask_idle
+    lda row
+    cmp #rows
+    bcc .good_to_iterate
+    lda #0
+    sta keepIterating
+    lda #TASK_IDLE
+    sta activeTask
+    jmp .runActiveTask_bailout
+
+
+.good_to_iterate
+    
     jsr nextMandelCol
     lda #MAX_ITERATIONS
     sta iterations
@@ -432,13 +434,13 @@ runActiveTask:
     jmp .runActiveTask_bailout
 
 .runActiveTask_bailout 
-    PLA
+    POP_REGISTERS
     rts
 
 runNextIter:        ; run next mandelbrot iteration
     lda row
     cmp #rows
-    bne .runNextIter_iterate   ; skip if we're out of rows to render
+    bcc .runNextIter_iterate   ; skip if we're out of rows to render
 .runNextIter_doneIterating
     lda #0
     sta keepIterating
@@ -453,9 +455,6 @@ runNextIter:        ; run next mandelbrot iteration
 .runNextIter_render            ; we have a thing to render
     lda #TASK_UPDATEPF
     sta activeTask
-
-;.runNextIter_setNextIter
-;    jsr nextMandelCol
 
 .runNextIter_bailout
     rts

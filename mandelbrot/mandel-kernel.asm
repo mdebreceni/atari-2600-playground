@@ -29,50 +29,52 @@ mandel:
     POP_REGISTERS
     rts
 
-x_mandel:
+xmandel:
+;mandel:
     ; push registers and state - save on stack
     PUSH_REGISTERS
     lda #GREEN
     sta COLUBK
 
-    ; lda #ITERATIONS              ; hack - one iteration at a time for easier time slicing
-    ; sta iterations
-iterator_loop:
+    FIXUP zr
+    FIXUP zi
+
     ldy #1              ; indexing with this accesses the high byte 
 
     ; Calculate zr^2 + zi^2. 
 
     clc
-    lda zr            ; A = low(zr^2) 
-    tax                 
+    lda zr            ; A = low(zr^2)  
+    sta xScratch ; tax
     adc zi            ; A = low(zr^2) + low(zi^2) = low(zr^2 + zi^2) 
     sta zr2_p_zi2_lo
     lda zr, y         ; A = high(zr^2) 
     adc zi, y         ; A = high(zr^2) + high(zi^2) = high(zr^2 + zi^2) 
     ;cmp #4 << (fraction_bits-8)
     ;cmp #4 << 1    ;; FIXME:  1 is a placeholder
-    cmp #2
-    bcs .bailoutToInfinityAndBeyond
     sta zr2_p_zi2_hi
+    cmp #$f1
+    bcs .bailoutToInfinityAndBeyond
+    
 
     ; Calculate zr + zi. 
 
     clc
-    lda zr+0            ; A = low(zr) 
-    adc zi+0            ; A = low(zr + zi) 
-    sta zr_p_zi+0
+    lda zr              ; A = low(zr) 
+    adc zi             ; A = low(zr + zi) 
+    sta zr_p_zi
     lda zr,y            ; A = high(zr) 
     adc zi,y            ; A = high(zr + zi) + C 
-    and #$3F
-    ora #$80            ; fixup 
+    ; and #$3F
+    ora #$F0            ; fixup 
     sta zr_p_zi,y
 
     ; Calculate zr^2 - zi^2. 
 
-    txa                 ; A = low(zr^2) 
+    lda xScratch; txa                 ; A = low(zr^2) 
     sec
     sbc zi            ; A = low(zr^2 - zi^2) 
-    tax
+    sta xScratch; tax
     lda zr, y         ; A = high(zr^2) 
     sbc zi, y         ; A = high(zr^2 - zi^2) 
     sta zr2_m_zi2,y
@@ -80,13 +82,13 @@ iterator_loop:
     ; Calculate zr = (zr^2 - zi^2) + cr. 
 
     clc
-    txa
-    adc cr+0            ; A = low(zr^2 - zi^2 + cr) 
-    sta zr+0
+    lda xScratch; txa
+    adc cr              ; A = low(zr^2 - zi^2 + cr) 
+    sta zr
     lda zr2_m_zi2,y     ; A = high(zr^2 - zi^2) 
     adc cr,y            ; A = high(zr^2 - zi^2 + cr) 
-    and #$3F
-    ora #$80            ; fixup 
+    ; and #$3F
+    ora #$F0            ; fixup 
     sta zr,y
 
     ; Calculate zi' = (zr+zi)^2 - (zr^2 + zi^2). 
@@ -94,7 +96,7 @@ iterator_loop:
     sec
     lda zr_p_zi       ; A = low((zr + zi)^2) 
     sbc zr2_p_zi2_lo     ; A = low((zr + zi)^2 - (zr^2 + zi^2)) 
-    tax
+    sta xScratch; tax
     lda zr_p_zi, y    ; A = high((zr + zi)^2) 
     sbc zr2_p_zi2_hi     ; A = high((zr + zi)^2 - (zr^2 + zi^2)) 
     tay
@@ -102,13 +104,13 @@ iterator_loop:
     ; Calculate zi = zi' + ci. 
 
     clc
-    txa
-    adc ci+0
-    sta zi+0
+    lda xScratch; txa
+    adc ci
+    sta zi
     tya
     adc ci,y
-    and #$3F
-    ora #$80            ; fixup 
+    ; and #$3F
+    ora #$F0            ; fixup 
     sta zi,y
 
     dec iterations  
@@ -138,3 +140,32 @@ iterator_loop:
     ; restore saved registers and state from stack
     POP_REGISTERS
     rts
+ 
+    MAC fixup ; pass address of low byte of 16-bit int
+    ;   example:  if passed a fixed point number to square
+    ;   
+    ;   input format:
+    ;   xxxx0www wffffff0 
+    ;   xxxx               dontcare
+    ;       0              always 0
+    ;        www w         whole portion
+    ;             ffffff   fractional portion
+    ;                   0  always 0
+    ;   We will translate to 
+    ;   11110www wffffff0
+    ;   which is the address of the square of this number
+    ; 
+    ;   save cycles by assuming caller has set y to 1 :D
+    ;
+    PHA    
+
+    lda {1}   ;low byte, we zero-out bit 0
+    and #$FE
+    sta {1}
+
+    lda {1},Y  ; high byte, we turn on top 4 bits
+    ora #$f0
+    sta {1},Y
+
+    PLA
+    ENDM
