@@ -10,12 +10,12 @@
 
 	processor 6502
 	include "vcs.h"
-MAX_ITERATIONS = 32
-rows = 30  ; number of rows to render (two playfield bytes per row)
+MAX_ITERATIONS = 10
+rows = 14  ; number of rows to render (two playfield bytes per row)
 cols = 16  ; number of coloumns to render (half of a mirrored playfield using PF1 and PF2- 16 bits)
 mandelByteCount = 2 * rows
-scanlines_per_row = 5
-tim64_clocks_per_row = 5
+scanlines_per_row = 12
+tim64_clocks_per_row = 13
 TASK_IDLE      = $03
 TASK_ITERATE   = $01
 TASK_UPDATEPF  = $02
@@ -341,11 +341,11 @@ nextMandelCol:   ; advance to next colum (i axis). Advance Ci by one step. Wrapa
     ; therefore each column means we increment in the imaginary direction
     lda ci
     CLC
-    adc #cStep   ; update c to next step in imaginary direction
+    adc cStep   ; update c to next step in imaginary direction
     sta ci
     
     lda ci,y
-    clc
+;    clc
     adc cStep,y
     sta ci,y
     POP_REGISTERS
@@ -375,7 +375,7 @@ nextMandelRow:  ; move cursor to next row
     sta cr
 
     lda cr,y
-    CLC
+    ; CLC
     adc cStep,y
     sta cr,y
 

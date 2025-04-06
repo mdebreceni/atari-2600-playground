@@ -7,7 +7,7 @@
 
 
     processor 6502
-mandel:
+;mandel:
     PUSH_REGISTERS
     lda #GREEN
     sta COLUBK
@@ -28,19 +28,20 @@ mandel:
     sta COLUBK
     POP_REGISTERS
     rts
-
-xmandel:
-;mandel:
+mandel:
     ; push registers and state - save on stack
     PUSH_REGISTERS
-    lda #GREEN
+    lda #ORANGE
     sta COLUBK
 
-    FIXUP zr
-    FIXUP zi
 
     ldy #1              ; indexing with this accesses the high byte 
 
+fixup_zr:
+    FIXUP zr
+fixup_zi:
+    FIXUP zi
+    
     ; Calculate zr^2 + zi^2. 
 
     clc
@@ -53,7 +54,8 @@ xmandel:
     ;cmp #4 << (fraction_bits-8)
     ;cmp #4 << 1    ;; FIXME:  1 is a placeholder
     sta zr2_p_zi2_hi
-    cmp #$f1
+    and #$07
+    cmp #$02
     bcs .bailoutToInfinityAndBeyond
     
 
@@ -65,7 +67,7 @@ xmandel:
     sta zr_p_zi
     lda zr,y            ; A = high(zr) 
     adc zi,y            ; A = high(zr + zi) + C 
-    ; and #$3F
+    and #$f7
     ora #$F0            ; fixup 
     sta zr_p_zi,y
 
@@ -87,7 +89,7 @@ xmandel:
     sta zr
     lda zr2_m_zi2,y     ; A = high(zr^2 - zi^2) 
     adc cr,y            ; A = high(zr^2 - zi^2 + cr) 
-    ; and #$3F
+    and #$f7
     ora #$F0            ; fixup 
     sta zr,y
 
@@ -109,7 +111,7 @@ xmandel:
     sta zi
     tya
     adc ci,y
-    ; and #$3F
+    and #$f7
     ora #$F0            ; fixup 
     sta zi,y
 
@@ -164,6 +166,7 @@ xmandel:
     sta {1}
 
     lda {1},Y  ; high byte, we turn on top 4 bits
+    and #$f7
     ora #$f0
     sta {1},Y
 
