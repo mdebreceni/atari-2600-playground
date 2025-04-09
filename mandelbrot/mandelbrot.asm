@@ -10,12 +10,14 @@
 
 	processor 6502
 	include "vcs.h"
-MAX_ITERATIONS = 10
-rows = 14  ; number of rows to render (two playfield bytes per row)
+MAX_ITERATIONS = 30
+rows = 15  ; number of rows to render (two playfield bytes per row)
 cols = 16  ; number of coloumns to render (half of a mirrored playfield using PF1 and PF2- 16 bits)
 mandelByteCount = 2 * rows
-scanlines_per_row = 12
-tim64_clocks_per_row = 13
+scanlines_per_row = 10
+tim64_clocks_per_row = 11
+
+
 TASK_IDLE      = $03
 TASK_ITERATE   = $01
 TASK_UPDATEPF  = $02
@@ -49,7 +51,6 @@ ciStart ds.w 1 ;
 cStep ds.w   1 ; increment between iterations (both c real and c imaginary)
 
 iterations ds.b 1     ; number of remaining iterations
-;iterator_loop
 
 keepIterating ds.b 1  ; have we reached a final result yet?
 activeTask ds.b 1           ; active task
@@ -57,7 +58,6 @@ activeTask ds.b 1           ; active task
 row ds.b 1            ; current column being rendered (0 .. rows)
 col ds.b 1            ; current column (0..15)   (columns 0..7 are in PF1, 8-15 are in PF2)
 pfBitMask ds.b 1          ; bit number of playfield to turn on
-xScratch ds.b 1
 
 ;==============
 
@@ -212,6 +212,7 @@ updatePfBits:
     sta pfBitMask
 .setOrClearPF1
     lda iterations
+    and #01
     cmp #0
     beq .clearBitPF1
 .setBitPF1
@@ -238,6 +239,7 @@ updatePfBits:
 
 .setOrClearPF2
     lda iterations
+    and #01
     cmp #0
     beq .clearBitPF2
 .setBitPF2
@@ -266,32 +268,46 @@ initMandelVars:
 
 ; starting points for Cr / Ci
     ;  C = -2.0 -2.0i 
-    ; 0010 000000   2.0 in fixed point
-    ; 1101 111111  1’s complement
-    ; 1110 000000   2’s complement
+    ; 000000 0010 000000   2.0 in fixed point
+    ; 000000 1101 111111  1’s complement
+    ; 000000 1110 000000   2’s complement
+    ; 000001 1100 000000   2's complement, shifted left 
+    ; 111101 1100 000000   2's complement, shifted left and with address fixup
+    ; 1111 0111 0000 0000   groupsed into 4-bit nybbles - f700
+    ; 
     ; 11 1000 0000   0x3800  (prior)
     ; 11 0000 0000   0x300  (shift right by 1)
 ; crStart ds.w  ; 
     ldy #1  ; use index to reach high byte
     lda #$00
     sta crStart
-    lda #$F3
+    sta cr
+    lda #$f7
     sta crStart,y
+    sta cr,y
+    fixup crStart
+    fixup cr
 
 ; ciStart ds.w  ;
     lda #$00
     sta ciStart
-    lda #$F3
+    sta ci
+    lda #$F7
     sta ciStart,y
+    sta ci,y
+    fixup ciStart
+    fixup ci
 
 ;c_step ds.w    ; increment between iterations (for both real and imaginary)
 ; we want to step between -2 and 2 in 32 steps
-; 4 / 32 = 1/8 =>    'xxxx00 0000 001000' ==> 
-;              =>     xxxx00 00 00010000  == 0x0010
+; 4 / 32 = 1/8 =>    'xxxx00 0000 001000' ==>  0+ 1/8   (2 ^3)
+;              =>    'xxxx00 0000 010000' ==> shifted left one bit
+;              =>       1111 0000 0001 0000  ==> concatenated to 16 bits
+;              =>          f010
 ;  0001 0010  ==> 0x12  ==> 0x24 after shifting left by one bit
     lda #$10
     sta cStep
-    lda #$00
+    lda #$f0
     sta cStep,y
 
 ; initialize Zr and Zi as 0

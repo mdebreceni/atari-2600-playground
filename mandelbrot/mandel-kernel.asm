@@ -34,87 +34,97 @@ mandel:
     lda #ORANGE
     sta COLUBK
 
-
+.cowlark_start:
     ldy #1              ; indexing with this accesses the high byte 
 
-fixup_zr:
+fixup_zr: 
     FIXUP zr
 fixup_zi:
     FIXUP zi
-    
+
     ; Calculate zr^2 + zi^2. 
 
     clc
-    lda zr            ; A = low(zr^2)  
-    sta xScratch ; tax
-    adc zi            ; A = low(zr^2) + low(zi^2) = low(zr^2 + zi^2) 
+    ldy #0
+    lda (zr),y            ; A = low(zr^2)  
+    tax
+    adc (zi),y            ; A = low(zr^2) + low(zi^2) = low(zr^2 + zi^2) 
     sta zr2_p_zi2_lo
-    lda zr, y         ; A = high(zr^2) 
-    adc zi, y         ; A = high(zr^2) + high(zi^2) = high(zr^2 + zi^2) 
+    ldy #1
+    LDA (zr),y         ; A = high(zr^2) 
+    adc (zi),y         ; A = high(zr^2) + high(zi^2) = high(zr^2 + zi^2) 
     ;cmp #4 << (fraction_bits-8)
     ;cmp #4 << 1    ;; FIXME:  1 is a placeholder
-    sta zr2_p_zi2_hi
-    and #$07
+.compare
+    ;   1111 0xxx x/xxx xxx0
+    ;   1111 0100 x/xxxx xxx0
     cmp #$02
     bcs .bailoutToInfinityAndBeyond
-    
+    sta zr2_p_zi2_hi
+    ;and #$07
 
     ; Calculate zr + zi. 
 
+    ldy #0
     clc
-    lda zr              ; A = low(zr) 
-    adc zi             ; A = low(zr + zi) 
-    sta zr_p_zi
-    lda zr,y            ; A = high(zr) 
-    adc zi,y            ; A = high(zr + zi) + C 
+    lda zr+0              ; A = low(zr) 
+    adc zi+0              ; A = low(zr + zi) 
+    sta zr_p_zi+0
+    lda zr+1            ; A = high(zr) 
+    adc zi+1            ; A = high(zr + zi) + C 
     and #$f7
     ora #$F0            ; fixup 
-    sta zr_p_zi,y
+    sta zr_p_zi+1
 
     ; Calculate zr^2 - zi^2. 
 
-    lda xScratch; txa                 ; A = low(zr^2) 
+    ldy #0
+    txa
     sec
-    sbc zi            ; A = low(zr^2 - zi^2) 
-    sta xScratch; tax
-    lda zr, y         ; A = high(zr^2) 
-    sbc zi, y         ; A = high(zr^2 - zi^2) 
-    sta zr2_m_zi2,y
+    sbc (zi),y            ; A = low(zr^2 - zi^2) 
+    tax
+    ldy #1
+    lda (zr),y         ; A = high(zr^2) 
+    sbc (zi),y         ; A = high(zr^2 - zi^2) 
+    sta zr2_m_zi2+1
 
     ; Calculate zr = (zr^2 - zi^2) + cr. 
 
     clc
-    lda xScratch; txa
-    adc cr              ; A = low(zr^2 - zi^2 + cr) 
-    sta zr
-    lda zr2_m_zi2,y     ; A = high(zr^2 - zi^2) 
-    adc cr,y            ; A = high(zr^2 - zi^2 + cr) 
+    txa
+    adc cr+0              ; A = low(zr^2 - zi^2 + cr) 
+    sta zr+0
+    lda zr2_m_zi2+1     ; A = high(zr^2 - zi^2) 
+    adc cr+1            ; A = high(zr^2 - zi^2 + cr) 
     and #$f7
     ora #$F0            ; fixup 
-    sta zr,y
+    sta zr+1
 
     ; Calculate zi' = (zr+zi)^2 - (zr^2 + zi^2). 
 
     sec
-    lda zr_p_zi       ; A = low((zr + zi)^2) 
-    sbc zr2_p_zi2_lo     ; A = low((zr + zi)^2 - (zr^2 + zi^2)) 
-    sta xScratch; tax
-    lda zr_p_zi, y    ; A = high((zr + zi)^2) 
+    ldy #0
+    lda (zr_p_zi),y       ; A = low((zr + zi)^2) 
+    sbc zr2_p_zi2_lo      ; A = low((zr + zi)^2 - (zr^2 + zi^2)) 
+    tax
+    ldy #1
+    lda (zr_p_zi),y      ; A = high((zr + zi)^2) 
     sbc zr2_p_zi2_hi     ; A = high((zr + zi)^2 - (zr^2 + zi^2)) 
     tay
 
     ; Calculate zi = zi' + ci. 
 
     clc
-    lda xScratch; txa
-    adc ci
-    sta zi
+    txa
+    adc ci+0
+    sta zi+0
     tya
-    adc ci,y
+    adc ci+1
     and #$f7
     ora #$F0            ; fixup 
-    sta zi,y
+    sta zi+1
 
+.dec_iterations
     dec iterations  
     bne .return   ;; or fall through if we've reached 0 iterations
 
