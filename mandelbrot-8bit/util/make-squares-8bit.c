@@ -12,7 +12,7 @@
 
 
 #define MAXUINT_8 0xff       // clamp squares to max unsigned 8-bit value
-#define FP_MODE  35   // either 44 or 35
+#define FP_MODE  44   // either 44 or 35
 
 #if FP_MODE == 44
     #define WHOLE_BITS 4
@@ -65,14 +65,23 @@ uint8_t* asPrintableFp(int16_t value, uint8_t* outBuffer, int maxLen) {
 void makeDasmData(uint16_t *squaresTable, uint16_t count, char* label, uint16_t orgAddr) {
     printf("; programmatically generated table of squares\n");
     printf("; %d.%d fixed point mode\n", WHOLE_BITS, FRACT_BITS);
-    printf("; whole_mask = #$%02x\n", WHOLE_MASK);
-    printf("; fract_mask = #$%02x\n", FRACT_MASK);
+    printf("wholeMask = #$%02x\n", WHOLE_MASK);
+    printf("fractMask = #$%02x\n", FRACT_MASK);
+
+    int8_t cStartVal = 0 - (2 << FRACT_BITS);   // hopefully this gives us -2, properly shifted      
+    int8_t cStep = 1 << (FRACT_BITS - 3);     // 0.125 = 2 ^ -3, and 2^0 = 1.  
+                                              // The bit for '1' is FRACT_BITS from the right.
+
+    printf("cStartVal = #$%02x\n", (uint8_t)cStartVal);
+    printf("cStepVal  = #$%02x\n", cStep);
+    printf("\n");
+    int offset = 0;
+    int words_per_row = 16;
+
     printf("%s:", label);
     if(orgAddr != 0xffff) {
         printf("    ORG $%04x\n", orgAddr);
     }
-    int offset = 0;
-    int words_per_row = 16;
     while(offset < count) {
         if(offset % words_per_row == 0) {
             printf("\n    DC.b ");
@@ -118,10 +127,8 @@ int main(void) {
         squares[idx] = sq_fp;
 
     }
-//    for(int i=48; i<49; i++) {
-//        printf("%02x ", squares[i]);
-//    }
     printf("\n");
+
     makeDasmData(squares, 256, "squares", 0xffff);
     return 0;
 }

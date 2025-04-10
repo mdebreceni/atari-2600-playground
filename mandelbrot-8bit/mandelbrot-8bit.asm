@@ -12,13 +12,10 @@
 	include "vcs.h"
 MAX_ITERATIONS = 3
 rows = 15  ; number of rows to render (two playfield bytes per row)
-cols = 16  ; number of coloumns to render (half of a mirrored playfield using PF1 and PF2- 16 bits)
+cols = 16  ; number of columns to render (half of a mirrored playfield using PF1 and PF2- 16 bits)
 mandelByteCount = 2 * rows
 scanlines_per_row = 10
 tim64_clocks_per_row = 11
-
-cStartVal = $e0;   -2.0
-cStepVal = $02;    0.125
 
 TASK_IDLE      = $03
 TASK_ITERATE   = $01
