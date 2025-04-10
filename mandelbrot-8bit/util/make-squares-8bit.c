@@ -9,12 +9,24 @@
 //          FFFFFFF  --> fractional portio
 //  Array Indexing
 //  base address + y (since array is 256 bytes, an 8-bit index can access entire array)
-// 
+
+
 #define MAXUINT_8 0xff       // clamp squares to max unsigned 8-bit value
-#define WHOLE_MASK  0xe0    // extract 3 bit whole part from FP number
-#define WHOLE_BITS  3
-#define FRACT_MASK  0x1f    // extract 5 bit fractional part from FP number                            
-#define FRACT_BITS  5
+#define FP_MODE  35   // either 44 or 35
+
+#if FP_MODE == 44
+    #define WHOLE_BITS 4
+    #define FRACT_BITS 4
+    #define WHOLE_MASK  0xf0    // extract 3 bit whole part from FP number
+    #define FRACT_MASK  0x0f    // extract 5 bit fractional part from FP number                            
+#else
+    #define WHOLE_BITS 3
+    #define FRACT_BITS 5
+    #define WHOLE_MASK  0xe0
+    #define FRACT_MASK  0x1f
+#endif
+
+
 #define ORG_ADDR 0xf000     // memory location fixup
 
 uint8_t* asBinary(uint8_t ch, int bitWidth, uint8_t* outBits ) {
@@ -51,7 +63,9 @@ uint8_t* asPrintableFp(uint16_t value, uint8_t* outBuffer, int maxLen) {
 
 void makeDasmData(uint16_t *squaresTable, uint16_t count, char* label, uint16_t orgAddr) {
     printf("; programmatically generated table of squares\n");
-    printf("; %d.%d bit fixed-point\n", WHOLE_BITS, FRACT_BITS);
+    printf("; %d.%d fixed point mode\n", WHOLE_BITS, FRACT_BITS);
+    printf("; whole_mask = #$%02x\n", WHOLE_MASK);
+    printf("; fract_mask = #$%02x\n", FRACT_MASK);
     printf("%s:", label);
     if(orgAddr != 0xffff) {
         printf("    ORG $%04x\n", orgAddr);
