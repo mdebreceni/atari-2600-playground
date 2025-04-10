@@ -7,6 +7,8 @@
 
 
     processor 6502
+
+    INCLUDE "squares-8bit.asm"
 ;mandel:
     PUSH_REGISTERS
     lda #GREEN
@@ -37,92 +39,67 @@ mandel:
 .cowlark_start:
     ldy #1              ; indexing with this accesses the high byte 
 
-fixup_zr: 
-    FIXUP zr
-fixup_zi:
-    FIXUP zi
-
     ; Calculate zr^2 + zi^2. 
 
     clc
-    ldy #0
-    lda (zr),y            ; A = low(zr^2)  
+    ldy zr
+    lda squares,y            ; A = zr^2
+    sta zr2
     tax
-    adc (zi),y            ; A = low(zr^2) + low(zi^2) = low(zr^2 + zi^2) 
-    sta zr2_p_zi2_lo
-    ldy #1
-    LDA (zr),y         ; A = high(zr^2) 
-    adc (zi),y         ; A = high(zr^2) + high(zi^2) = high(zr^2 + zi^2) 
-    ;cmp #4 << (fraction_bits-8)
-    ;cmp #4 << 1    ;; FIXME:  1 is a placeholder
+    ldy zi
+    lda squares,y            ; A = low(zr^2) + low(zi^2) = low(zr^2 + zi^2) 
+    sta zi2
+    CLC
+    adc zr2
+    sta zr2_p_zi2
 .compare
     ;   1111 0xxx x/xxx xxx0
     ;   1111 0100 x/xxxx xxx0
-    cmp #$02
+    cmp #$40
     bcs .bailoutToInfinityAndBeyond
-    sta zr2_p_zi2_hi
+    ;sta zr2_p_zi2  // duplicate instruction
     ;and #$07
 
     ; Calculate zr + zi. 
 
     ldy #0
     clc
-    lda zr+0              ; A = low(zr) 
-    adc zi+0              ; A = low(zr + zi) 
-    sta zr_p_zi+0
-    lda zr+1            ; A = high(zr) 
-    adc zi+1            ; A = high(zr + zi) + C 
-    and #$f7
-    ora #$F0            ; fixup 
-    sta zr_p_zi+1
-
+    lda zr              ; A = low(zr) 
+    adc zi              ; A = low(zr + zi) 
+    sta zr_p_zi
+    
     ; Calculate zr^2 - zi^2. 
 
-    ldy #0
-    txa
+    txa   ; x has zr2 in it
     sec
-    sbc (zi),y            ; A = low(zr^2 - zi^2) 
-    tax
-    ldy #1
-    lda (zr),y         ; A = high(zr^2) 
-    sbc (zi),y         ; A = high(zr^2 - zi^2) 
-    sta zr2_m_zi2+1
+    sbc zi2            ; A = (zr^2 - zi^2) 
+    tax   ; x now has zr^2 - zi^2
 
     ; Calculate zr = (zr^2 - zi^2) + cr. 
 
     clc
-    txa
-    adc cr+0              ; A = low(zr^2 - zi^2 + cr) 
-    sta zr+0
-    lda zr2_m_zi2+1     ; A = high(zr^2 - zi^2) 
-    adc cr+1            ; A = high(zr^2 - zi^2 + cr) 
-    and #$f7
-    ora #$F0            ; fixup 
-    sta zr+1
-
+    txa                 ; A = (zr^2 - zi^2)
+    adc cr              ; A = (zr^2 - zi^2 + cr) 
+    sta zr
+    
     ; Calculate zi' = (zr+zi)^2 - (zr^2 + zi^2). 
-
     sec
-    ldy #0
-    lda (zr_p_zi),y       ; A = low((zr + zi)^2) 
-    sbc zr2_p_zi2_lo      ; A = low((zr + zi)^2 - (zr^2 + zi^2)) 
-    tax
-    ldy #1
-    lda (zr_p_zi),y      ; A = high((zr + zi)^2) 
-    sbc zr2_p_zi2_hi     ; A = high((zr + zi)^2 - (zr^2 + zi^2)) 
-    tay
+    ldy zr_p_zi
+    lda squares,y       ; A = ((zr + zi)^2) 
+    sbc zr2_p_zi2         ; A = ((zr + zi)^2 - (zr^2 + zi^2)) 
+    tax                   ; X = A
+    ; ldy #1
+    ; lda (zr_p_zi),y      ; A = high((zr + zi)^2) 
+    ; sbc zr2_p_zi2_hi     ; A = high((zr + zi)^2 - (zr^2 + zi^2)) 
+    ; tay
 
     ; Calculate zi = zi' + ci. 
 
     clc
     txa
-    adc ci+0
-    sta zi+0
+    adc ci
+    sta zi
     tya
-    adc ci+1
-    and #$f7
-    ora #$F0            ; fixup 
-    sta zi+1
 
 .dec_iterations
     dec iterations  
@@ -153,7 +130,7 @@ fixup_zi:
     POP_REGISTERS
     rts
  
-    MAC fixup ; pass address of low byte of 16-bit int
+;    MAC fixup ; pass address of low byte of 16-bit int
     ;   example:  if passed a fixed point number to square
     ;   
     ;   input format:
@@ -169,16 +146,16 @@ fixup_zi:
     ; 
     ;   save cycles by assuming caller has set y to 1 :D
     ;
-    PHA    
+    ; PHA    
 
-    lda {1}   ;low byte, we zero-out bit 0
-    and #$FE
-    sta {1}
+    ; lda {1}   ;low byte, we zero-out bit 0
+    ; and #$FE
+    ; sta {1}
 
-    lda {1},Y  ; high byte, we turn on top 4 bits
-    and #$f7
-    ora #$f0
-    sta {1},Y
+    ; lda {1},Y  ; high byte, we turn on top 4 bits
+    ; and #$f7
+    ; ora #$f0
+    ; sta {1},Y
 
-    PLA
-    ENDM
+    ; PLA
+    ; ENDM

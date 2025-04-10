@@ -10,13 +10,15 @@
 
 	processor 6502
 	include "vcs.h"
-MAX_ITERATIONS = 30
+MAX_ITERATIONS = 3
 rows = 15  ; number of rows to render (two playfield bytes per row)
 cols = 16  ; number of coloumns to render (half of a mirrored playfield using PF1 and PF2- 16 bits)
 mandelByteCount = 2 * rows
 scanlines_per_row = 10
 tim64_clocks_per_row = 11
 
+cStartVal = $e0;   -2.0
+cStepVal = $02;    0.125
 
 TASK_IDLE      = $03
 TASK_ITERATE   = $01
@@ -32,23 +34,23 @@ GREEN          = $ca
     ORG $80
 
 mandelBytes  ds mandelByteCount
-zr  ds.w 1
-zi  ds.w 1
-cr  ds.w 1
-ci  ds.w 1
-y   ds.w 1
+zr  ds.b 1
+zi  ds.b 1
+cr  ds.b 1
+ci  ds.b 1
+;// y   ds.w 1
 
-zr_p_zi ds.w 1
-;zr2_p_zi2 ds.b 1
-zr2_p_zi2_lo ds.b 1
-zr2_p_zi2_hi ds.b 1
-zr2_m_zi2 ds.w 1
+zr_p_zi ds.b 1
+zr2_p_zi2 ds.b 1
+zr2_m_zi2 ds.b 1
+zi2 ds.b 1
+zr2 ds.b 1
 
 ; starting points for Cr / Ci
-crStart ds.w 1 ;
-ciStart ds.w 1 ; 
+crStart ds.b 1 ;
+ciStart ds.b 1 ; 
 
-cStep ds.w   1 ; increment between iterations (both c real and c imaginary)
+cStep ds.b   1 ; increment between iterations (both c real and c imaginary)
 
 iterations ds.b 1     ; number of remaining iterations
 
@@ -61,9 +63,9 @@ pfBitMask ds.b 1          ; bit number of playfield to turn on
 
 ;==============
 
-    SEG squares
-    ORG $f000
-    include "squares-8bit.asm"
+;    SEG squares
+;    ORG $f000
+;    include "squares-8bit.asm"
     SEG CODE
     ORG $f800
     include "mandel-8bit-kernel.asm"
@@ -257,7 +259,7 @@ updatePfBits:
     POP_REGISTERS
     rts  ; seems like we should return here?
     
-initMandelVars:
+initMandelVars:     ;TODO
 ; Initialize state 
     PUSH_REGISTERS
     lda #$00
@@ -265,37 +267,15 @@ initMandelVars:
     sta row
     sta col
 
-; starting points for Cr / Ci
-    ;  C = -2.0 -2.0i 
-    ; 000000 0010 000000   2.0 in fixed point
-    ; 000000 1101 111111  1’s complement
-    ; 000000 1110 000000   2’s complement
-    ; 000001 1100 000000   2's complement, shifted left 
-    ; 111101 1100 000000   2's complement, shifted left and with address fixup
-    ; 1111 0111 0000 0000   groupsed into 4-bit nybbles - f700
-    ; 
-    ; 11 1000 0000   0x3800  (prior)
-    ; 11 0000 0000   0x300  (shift right by 1)
-; crStart ds.w  ; 
-    ldy #1  ; use index to reach high byte
-    lda #$00
+
+    lda #cStartVal
     sta crStart
     sta cr
-    lda #$f7
-    sta crStart,y
-    sta cr,y
-    fixup crStart
-    fixup cr
 
 ; ciStart ds.w  ;
-    lda #$00
+    lda #cStartVal
     sta ciStart
     sta ci
-    lda #$F7
-    sta ciStart,y
-    sta ci,y
-    fixup ciStart
-    fixup ci
 
 ;c_step ds.w    ; increment between iterations (for both real and imaginary)
 ; we want to step between -2 and 2 in 32 steps
@@ -304,17 +284,15 @@ initMandelVars:
 ;              =>       1111 0000 0001 0000  ==> concatenated to 16 bits
 ;              =>          f010
 ;  0001 0010  ==> 0x12  ==> 0x24 after shifting left by one bit
-    lda #$10
+    lda #cStepVal
     sta cStep
-    lda #$f0
-    sta cStep,y
 
 ; initialize Zr and Zi as 0
     lda #0
     sta zr
-    sta zr,y
     sta zi
-    sta zi,Y 
+    sta zi2
+    sta zr2
 
     lda #MAX_ITERATIONS
     sta iterations
@@ -327,25 +305,17 @@ initMandelVars:
     lda #00
 ;zr_p_zi ds.w
     sta zr_p_zi
-    sta zr_p_zi,y
 ;zr2_p_zi2 ds.b
-;    sta zr2_p_zi2
-;zr2_p_zi2_lo ds.b
-    sta zr2_p_zi2_lo
-;zr2_p_zi2_hi ds.b
-    sta zr2_p_zi2_hi
+    sta zr2_p_zi2
 ;zr2_m_zi2 ds.w
     sta zr2_m_zi2
-    sta zr2_m_zi2,y
     POP_REGISTERS
     rts    
 
+; TODO
 nextMandelCol:   ; advance to next colum (i axis). Advance Ci by one step. Wraparound if needed.
     PUSH_REGISTERS
     ldy 1
-;    lda col
-;    clc 
-;    adc #1
     inc col
     lda col
     cmp #cols
@@ -359,40 +329,24 @@ nextMandelCol:   ; advance to next colum (i axis). Advance Ci by one step. Wrapa
     adc cStep   ; update c to next step in imaginary direction
     sta ci
     
-    lda ci,y
-;    clc
-    adc cStep,y
-    sta ci,y
     POP_REGISTERS
     rts
     
+; TODO
 wrapAround:   ; move cursor back to start of row, advance to next row.  Reset Ci to start, and advance Cr by one step
     lda #0     ; reset to first column
     sta col
     
     lda ciStart   ; reset low and high byte of c (imaginary axis)
     sta ci
-    lda ciStart,y
-    sta ci,y
     ; fall through to nextMandelRow
 
 nextMandelRow:  ; move cursor to next row
     inc row
-;    lda row
-;    clc 
-;    inc row
-;    adc #1      ; increment cursor row
-;    sta row
-
     lda cr      ; add one step to c (lo and then hi)
     clc
     adc cStep
     sta cr
-
-    lda cr,y
-    ; CLC
-    adc cStep,y
-    sta cr,y
 
     POP_REGISTERS
     rts  
