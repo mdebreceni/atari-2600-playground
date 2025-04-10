@@ -45,7 +45,8 @@ uint8_t* asBinary(uint8_t ch, int bitWidth, uint8_t* outBits ) {
     return outBits;
 }
 
-uint8_t* asPrintableFp(uint16_t value, uint8_t* outBuffer, int maxLen) {
+uint8_t* asPrintableFp(int16_t value, uint8_t* outBuffer, int maxLen) {
+    // FIXME:  Does not like negative numbers.  
     // value is 8-bit FP
     // WWWFFFFF    
     // WWW       => Whole part (0 - 15)
@@ -86,27 +87,34 @@ void makeDasmData(uint16_t *squaresTable, uint16_t count, char* label, uint16_t 
 
 int main(void) {
     uint16_t squares[256] = {0};
-    uint8_t lowBitStr[9] = {0};
+    uint8_t fp_bitStr[9] = {0};
+    uint8_t sqfp_bitStr[9] = {0};
     uint8_t printableFp[16] = {0};
+    uint8_t printableSqFp[16] = {0};
 
     for(int i=-128; i < 128; i++) {
+        int8_t fp = i;
+        int8_t fp_whole = (fp) >> FRACT_BITS;
+        int8_t fp_fract = (fp) & FRACT_MASK;
+
         uint16_t sq_fp = i * i;   // multiply raw numbers
         sq_fp >>= FRACT_BITS;     // magnitude correction
         if (sq_fp > MAXUINT_8) {
             // clamp to MAXINT_8
             sq_fp = MAXUINT_8;
         }
-        
-        int16_t whole_fp = (sq_fp) >> FRACT_BITS;
-        int16_t fract_fp = (sq_fp) & FRACT_MASK;
-  
-        asBinary(sq_fp & 0x00ff, 8, lowBitStr);
-        asPrintableFp(sq_fp, printableFp, 16);
+        int16_t sq_fp_whole = (sq_fp) >> FRACT_BITS;
+        int16_t sq_fp_fract = (sq_fp) & FRACT_MASK;
+
+        asBinary(fp & 0x00ff, 8, fp_bitStr);
+        asBinary(sq_fp & 0x00ff, 8, sqfp_bitStr);
+        asPrintableFp(sq_fp, printableSqFp, 16);
+        asPrintableFp(fp, printableFp, 16);
 
         uint16_t idx = (uint16_t) i;
         idx &= 0xff;
-        printf("; i=%d, idx=%d sq_fp=%04x, whole_fp=%d, fract_fp=%d (%0.8f)  %s ==> %s\n", 
-                i,    idx,   sq_fp,      whole_fp,    fract_fp,    1.0 * fract_fp / (1 << FRACT_BITS), lowBitStr, printableFp );
+        printf("; i=%d, idx=%d fp=%04x fp_whole=%04x, fp_fract=%04x, printableFp=%s, fp_bits=%s || sq_fp=%04x, sq_fp_whole=%d, sq_fp_fract=%d (%0.8f)  %s ==> %s\n", 
+                  i,    idx,   fp,     fp_whole,      fp_fract,      printableFp,      fp_bitStr,    sq_fp,      sq_fp_whole,    sq_fp_fract,    1.0 * sq_fp_fract / (1 << FRACT_BITS), sqfp_bitStr, printableFp );
         squares[idx] = sq_fp;
 
     }
