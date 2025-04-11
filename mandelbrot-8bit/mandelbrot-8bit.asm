@@ -10,12 +10,12 @@
 
 	processor 6502
 	include "vcs.h"
-MAX_ITERATIONS = 3
-rows = 15  ; number of rows to render (two playfield bytes per row)
+MAX_ITERATIONS = 30
+rows = 25  ; number of rows to render (two playfield bytes per row)
 cols = 16  ; number of columns to render (half of a mirrored playfield using PF1 and PF2- 16 bits)
 mandelByteCount = 2 * rows
-scanlines_per_row = 10
-tim64_clocks_per_row = 11
+scanlines_per_row = 6
+tim64_clocks_per_row = 7
 
 TASK_IDLE      = $03
 TASK_ITERATE   = $01
@@ -325,7 +325,10 @@ nextMandelCol:   ; advance to next colum (i axis). Advance Ci by one step. Wrapa
     CLC
     adc cStep   ; update c to next step in imaginary direction
     sta ci
-    
+    lda #$00
+    sta zr
+    sta zi
+
     POP_REGISTERS
     rts
     
@@ -419,12 +422,13 @@ runNextIter:        ; run next mandelbrot iteration
     lda keepIterating          ; do we have a result?  If not, bail out
     bne .runNextIter_bailout
 .runNextIter_render            ; we have a thing to render
+    lda #0
+    sta keepIterating          ; stop iterating here
     lda #TASK_UPDATEPF
     sta activeTask
 
 .runNextIter_bailout
     rts
-
 
 ;; this has to be at end of code so that it's at the top of memory
     ORG $fffa                ;              set origin to last 6 bytes of 4k rom
