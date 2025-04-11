@@ -1,265 +1,266 @@
-; i=-128, idx=128 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-127, idx=129 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-126, idx=130 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-125, idx=131 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-124, idx=132 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-123, idx=133 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-122, idx=134 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-121, idx=135 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-120, idx=136 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-119, idx=137 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-118, idx=138 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-117, idx=139 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-116, idx=140 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-115, idx=141 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-114, idx=142 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-113, idx=143 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-112, idx=144 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-111, idx=145 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-110, idx=146 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-109, idx=147 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-108, idx=148 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-107, idx=149 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-106, idx=150 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-105, idx=151 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-104, idx=152 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-103, idx=153 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-102, idx=154 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-101, idx=155 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-100, idx=156 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-99, idx=157 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-98, idx=158 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-97, idx=159 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-96, idx=160 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-95, idx=161 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-94, idx=162 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-93, idx=163 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-92, idx=164 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-91, idx=165 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-90, idx=166 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-89, idx=167 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-88, idx=168 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-87, idx=169 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-86, idx=170 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-85, idx=171 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-84, idx=172 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-83, idx=173 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-82, idx=174 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-81, idx=175 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-80, idx=176 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-79, idx=177 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-78, idx=178 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-77, idx=179 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-76, idx=180 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-75, idx=181 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-74, idx=182 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-73, idx=183 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-72, idx=184 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-71, idx=185 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-70, idx=186 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-69, idx=187 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-68, idx=188 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-67, idx=189 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-66, idx=190 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-65, idx=191 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-64, idx=192 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=-63, idx=193 sq_fp=00f8, whole_fp=15, fract_fp=8 (0.50000000)  11111000 ==> ; 15.500000
-; i=-62, idx=194 sq_fp=00f0, whole_fp=15, fract_fp=0 (0.00000000)  11110000 ==> ; 15.000000
-; i=-61, idx=195 sq_fp=00e8, whole_fp=14, fract_fp=8 (0.50000000)  11101000 ==> ; 14.500000
-; i=-60, idx=196 sq_fp=00e1, whole_fp=14, fract_fp=1 (0.06250000)  11100001 ==> ; 14.062500
-; i=-59, idx=197 sq_fp=00d9, whole_fp=13, fract_fp=9 (0.56250000)  11011001 ==> ; 13.562500
-; i=-58, idx=198 sq_fp=00d2, whole_fp=13, fract_fp=2 (0.12500000)  11010010 ==> ; 13.125000
-; i=-57, idx=199 sq_fp=00cb, whole_fp=12, fract_fp=11 (0.68750000)  11001011 ==> ; 12.687500
-; i=-56, idx=200 sq_fp=00c4, whole_fp=12, fract_fp=4 (0.25000000)  11000100 ==> ; 12.250000
-; i=-55, idx=201 sq_fp=00bd, whole_fp=11, fract_fp=13 (0.81250000)  10111101 ==> ; 11.812500
-; i=-54, idx=202 sq_fp=00b6, whole_fp=11, fract_fp=6 (0.37500000)  10110110 ==> ; 11.375000
-; i=-53, idx=203 sq_fp=00af, whole_fp=10, fract_fp=15 (0.93750000)  10101111 ==> ; 10.937500
-; i=-52, idx=204 sq_fp=00a9, whole_fp=10, fract_fp=9 (0.56250000)  10101001 ==> ; 10.562500
-; i=-51, idx=205 sq_fp=00a2, whole_fp=10, fract_fp=2 (0.12500000)  10100010 ==> ; 10.125000
-; i=-50, idx=206 sq_fp=009c, whole_fp=9, fract_fp=12 (0.75000000)  10011100 ==> ; 9.750000
-; i=-49, idx=207 sq_fp=0096, whole_fp=9, fract_fp=6 (0.37500000)  10010110 ==> ; 9.375000
-; i=-48, idx=208 sq_fp=0090, whole_fp=9, fract_fp=0 (0.00000000)  10010000 ==> ; 9.000000
-; i=-47, idx=209 sq_fp=008a, whole_fp=8, fract_fp=10 (0.62500000)  10001010 ==> ; 8.625000
-; i=-46, idx=210 sq_fp=0084, whole_fp=8, fract_fp=4 (0.25000000)  10000100 ==> ; 8.250000
-; i=-45, idx=211 sq_fp=007e, whole_fp=7, fract_fp=14 (0.87500000)  01111110 ==> ; 7.875000
-; i=-44, idx=212 sq_fp=0079, whole_fp=7, fract_fp=9 (0.56250000)  01111001 ==> ; 7.562500
-; i=-43, idx=213 sq_fp=0073, whole_fp=7, fract_fp=3 (0.18750000)  01110011 ==> ; 7.187500
-; i=-42, idx=214 sq_fp=006e, whole_fp=6, fract_fp=14 (0.87500000)  01101110 ==> ; 6.875000
-; i=-41, idx=215 sq_fp=0069, whole_fp=6, fract_fp=9 (0.56250000)  01101001 ==> ; 6.562500
-; i=-40, idx=216 sq_fp=0064, whole_fp=6, fract_fp=4 (0.25000000)  01100100 ==> ; 6.250000
-; i=-39, idx=217 sq_fp=005f, whole_fp=5, fract_fp=15 (0.93750000)  01011111 ==> ; 5.937500
-; i=-38, idx=218 sq_fp=005a, whole_fp=5, fract_fp=10 (0.62500000)  01011010 ==> ; 5.625000
-; i=-37, idx=219 sq_fp=0055, whole_fp=5, fract_fp=5 (0.31250000)  01010101 ==> ; 5.312500
-; i=-36, idx=220 sq_fp=0051, whole_fp=5, fract_fp=1 (0.06250000)  01010001 ==> ; 5.062500
-; i=-35, idx=221 sq_fp=004c, whole_fp=4, fract_fp=12 (0.75000000)  01001100 ==> ; 4.750000
-; i=-34, idx=222 sq_fp=0048, whole_fp=4, fract_fp=8 (0.50000000)  01001000 ==> ; 4.500000
-; i=-33, idx=223 sq_fp=0044, whole_fp=4, fract_fp=4 (0.25000000)  01000100 ==> ; 4.250000
-; i=-32, idx=224 sq_fp=0040, whole_fp=4, fract_fp=0 (0.00000000)  01000000 ==> ; 4.000000
-; i=-31, idx=225 sq_fp=003c, whole_fp=3, fract_fp=12 (0.75000000)  00111100 ==> ; 3.750000
-; i=-30, idx=226 sq_fp=0038, whole_fp=3, fract_fp=8 (0.50000000)  00111000 ==> ; 3.500000
-; i=-29, idx=227 sq_fp=0034, whole_fp=3, fract_fp=4 (0.25000000)  00110100 ==> ; 3.250000
-; i=-28, idx=228 sq_fp=0031, whole_fp=3, fract_fp=1 (0.06250000)  00110001 ==> ; 3.062500
-; i=-27, idx=229 sq_fp=002d, whole_fp=2, fract_fp=13 (0.81250000)  00101101 ==> ; 2.812500
-; i=-26, idx=230 sq_fp=002a, whole_fp=2, fract_fp=10 (0.62500000)  00101010 ==> ; 2.625000
-; i=-25, idx=231 sq_fp=0027, whole_fp=2, fract_fp=7 (0.43750000)  00100111 ==> ; 2.437500
-; i=-24, idx=232 sq_fp=0024, whole_fp=2, fract_fp=4 (0.25000000)  00100100 ==> ; 2.250000
-; i=-23, idx=233 sq_fp=0021, whole_fp=2, fract_fp=1 (0.06250000)  00100001 ==> ; 2.062500
-; i=-22, idx=234 sq_fp=001e, whole_fp=1, fract_fp=14 (0.87500000)  00011110 ==> ; 1.875000
-; i=-21, idx=235 sq_fp=001b, whole_fp=1, fract_fp=11 (0.68750000)  00011011 ==> ; 1.687500
-; i=-20, idx=236 sq_fp=0019, whole_fp=1, fract_fp=9 (0.56250000)  00011001 ==> ; 1.562500
-; i=-19, idx=237 sq_fp=0016, whole_fp=1, fract_fp=6 (0.37500000)  00010110 ==> ; 1.375000
-; i=-18, idx=238 sq_fp=0014, whole_fp=1, fract_fp=4 (0.25000000)  00010100 ==> ; 1.250000
-; i=-17, idx=239 sq_fp=0012, whole_fp=1, fract_fp=2 (0.12500000)  00010010 ==> ; 1.125000
-; i=-16, idx=240 sq_fp=0010, whole_fp=1, fract_fp=0 (0.00000000)  00010000 ==> ; 1.000000
-; i=-15, idx=241 sq_fp=000e, whole_fp=0, fract_fp=14 (0.87500000)  00001110 ==> ; 0.875000
-; i=-14, idx=242 sq_fp=000c, whole_fp=0, fract_fp=12 (0.75000000)  00001100 ==> ; 0.750000
-; i=-13, idx=243 sq_fp=000a, whole_fp=0, fract_fp=10 (0.62500000)  00001010 ==> ; 0.625000
-; i=-12, idx=244 sq_fp=0009, whole_fp=0, fract_fp=9 (0.56250000)  00001001 ==> ; 0.562500
-; i=-11, idx=245 sq_fp=0007, whole_fp=0, fract_fp=7 (0.43750000)  00000111 ==> ; 0.437500
-; i=-10, idx=246 sq_fp=0006, whole_fp=0, fract_fp=6 (0.37500000)  00000110 ==> ; 0.375000
-; i=-9, idx=247 sq_fp=0005, whole_fp=0, fract_fp=5 (0.31250000)  00000101 ==> ; 0.312500
-; i=-8, idx=248 sq_fp=0004, whole_fp=0, fract_fp=4 (0.25000000)  00000100 ==> ; 0.250000
-; i=-7, idx=249 sq_fp=0003, whole_fp=0, fract_fp=3 (0.18750000)  00000011 ==> ; 0.187500
-; i=-6, idx=250 sq_fp=0002, whole_fp=0, fract_fp=2 (0.12500000)  00000010 ==> ; 0.125000
-; i=-5, idx=251 sq_fp=0001, whole_fp=0, fract_fp=1 (0.06250000)  00000001 ==> ; 0.062500
-; i=-4, idx=252 sq_fp=0001, whole_fp=0, fract_fp=1 (0.06250000)  00000001 ==> ; 0.062500
-; i=-3, idx=253 sq_fp=0000, whole_fp=0, fract_fp=0 (0.00000000)  00000000 ==> ; 0.000000
-; i=-2, idx=254 sq_fp=0000, whole_fp=0, fract_fp=0 (0.00000000)  00000000 ==> ; 0.000000
-; i=-1, idx=255 sq_fp=0000, whole_fp=0, fract_fp=0 (0.00000000)  00000000 ==> ; 0.000000
-; i=0, idx=0 sq_fp=0000, whole_fp=0, fract_fp=0 (0.00000000)  00000000 ==> ; 0.000000
-; i=1, idx=1 sq_fp=0000, whole_fp=0, fract_fp=0 (0.00000000)  00000000 ==> ; 0.000000
-; i=2, idx=2 sq_fp=0000, whole_fp=0, fract_fp=0 (0.00000000)  00000000 ==> ; 0.000000
-; i=3, idx=3 sq_fp=0000, whole_fp=0, fract_fp=0 (0.00000000)  00000000 ==> ; 0.000000
-; i=4, idx=4 sq_fp=0001, whole_fp=0, fract_fp=1 (0.06250000)  00000001 ==> ; 0.062500
-; i=5, idx=5 sq_fp=0001, whole_fp=0, fract_fp=1 (0.06250000)  00000001 ==> ; 0.062500
-; i=6, idx=6 sq_fp=0002, whole_fp=0, fract_fp=2 (0.12500000)  00000010 ==> ; 0.125000
-; i=7, idx=7 sq_fp=0003, whole_fp=0, fract_fp=3 (0.18750000)  00000011 ==> ; 0.187500
-; i=8, idx=8 sq_fp=0004, whole_fp=0, fract_fp=4 (0.25000000)  00000100 ==> ; 0.250000
-; i=9, idx=9 sq_fp=0005, whole_fp=0, fract_fp=5 (0.31250000)  00000101 ==> ; 0.312500
-; i=10, idx=10 sq_fp=0006, whole_fp=0, fract_fp=6 (0.37500000)  00000110 ==> ; 0.375000
-; i=11, idx=11 sq_fp=0007, whole_fp=0, fract_fp=7 (0.43750000)  00000111 ==> ; 0.437500
-; i=12, idx=12 sq_fp=0009, whole_fp=0, fract_fp=9 (0.56250000)  00001001 ==> ; 0.562500
-; i=13, idx=13 sq_fp=000a, whole_fp=0, fract_fp=10 (0.62500000)  00001010 ==> ; 0.625000
-; i=14, idx=14 sq_fp=000c, whole_fp=0, fract_fp=12 (0.75000000)  00001100 ==> ; 0.750000
-; i=15, idx=15 sq_fp=000e, whole_fp=0, fract_fp=14 (0.87500000)  00001110 ==> ; 0.875000
-; i=16, idx=16 sq_fp=0010, whole_fp=1, fract_fp=0 (0.00000000)  00010000 ==> ; 1.000000
-; i=17, idx=17 sq_fp=0012, whole_fp=1, fract_fp=2 (0.12500000)  00010010 ==> ; 1.125000
-; i=18, idx=18 sq_fp=0014, whole_fp=1, fract_fp=4 (0.25000000)  00010100 ==> ; 1.250000
-; i=19, idx=19 sq_fp=0016, whole_fp=1, fract_fp=6 (0.37500000)  00010110 ==> ; 1.375000
-; i=20, idx=20 sq_fp=0019, whole_fp=1, fract_fp=9 (0.56250000)  00011001 ==> ; 1.562500
-; i=21, idx=21 sq_fp=001b, whole_fp=1, fract_fp=11 (0.68750000)  00011011 ==> ; 1.687500
-; i=22, idx=22 sq_fp=001e, whole_fp=1, fract_fp=14 (0.87500000)  00011110 ==> ; 1.875000
-; i=23, idx=23 sq_fp=0021, whole_fp=2, fract_fp=1 (0.06250000)  00100001 ==> ; 2.062500
-; i=24, idx=24 sq_fp=0024, whole_fp=2, fract_fp=4 (0.25000000)  00100100 ==> ; 2.250000
-; i=25, idx=25 sq_fp=0027, whole_fp=2, fract_fp=7 (0.43750000)  00100111 ==> ; 2.437500
-; i=26, idx=26 sq_fp=002a, whole_fp=2, fract_fp=10 (0.62500000)  00101010 ==> ; 2.625000
-; i=27, idx=27 sq_fp=002d, whole_fp=2, fract_fp=13 (0.81250000)  00101101 ==> ; 2.812500
-; i=28, idx=28 sq_fp=0031, whole_fp=3, fract_fp=1 (0.06250000)  00110001 ==> ; 3.062500
-; i=29, idx=29 sq_fp=0034, whole_fp=3, fract_fp=4 (0.25000000)  00110100 ==> ; 3.250000
-; i=30, idx=30 sq_fp=0038, whole_fp=3, fract_fp=8 (0.50000000)  00111000 ==> ; 3.500000
-; i=31, idx=31 sq_fp=003c, whole_fp=3, fract_fp=12 (0.75000000)  00111100 ==> ; 3.750000
-; i=32, idx=32 sq_fp=0040, whole_fp=4, fract_fp=0 (0.00000000)  01000000 ==> ; 4.000000
-; i=33, idx=33 sq_fp=0044, whole_fp=4, fract_fp=4 (0.25000000)  01000100 ==> ; 4.250000
-; i=34, idx=34 sq_fp=0048, whole_fp=4, fract_fp=8 (0.50000000)  01001000 ==> ; 4.500000
-; i=35, idx=35 sq_fp=004c, whole_fp=4, fract_fp=12 (0.75000000)  01001100 ==> ; 4.750000
-; i=36, idx=36 sq_fp=0051, whole_fp=5, fract_fp=1 (0.06250000)  01010001 ==> ; 5.062500
-; i=37, idx=37 sq_fp=0055, whole_fp=5, fract_fp=5 (0.31250000)  01010101 ==> ; 5.312500
-; i=38, idx=38 sq_fp=005a, whole_fp=5, fract_fp=10 (0.62500000)  01011010 ==> ; 5.625000
-; i=39, idx=39 sq_fp=005f, whole_fp=5, fract_fp=15 (0.93750000)  01011111 ==> ; 5.937500
-; i=40, idx=40 sq_fp=0064, whole_fp=6, fract_fp=4 (0.25000000)  01100100 ==> ; 6.250000
-; i=41, idx=41 sq_fp=0069, whole_fp=6, fract_fp=9 (0.56250000)  01101001 ==> ; 6.562500
-; i=42, idx=42 sq_fp=006e, whole_fp=6, fract_fp=14 (0.87500000)  01101110 ==> ; 6.875000
-; i=43, idx=43 sq_fp=0073, whole_fp=7, fract_fp=3 (0.18750000)  01110011 ==> ; 7.187500
-; i=44, idx=44 sq_fp=0079, whole_fp=7, fract_fp=9 (0.56250000)  01111001 ==> ; 7.562500
-; i=45, idx=45 sq_fp=007e, whole_fp=7, fract_fp=14 (0.87500000)  01111110 ==> ; 7.875000
-; i=46, idx=46 sq_fp=0084, whole_fp=8, fract_fp=4 (0.25000000)  10000100 ==> ; 8.250000
-; i=47, idx=47 sq_fp=008a, whole_fp=8, fract_fp=10 (0.62500000)  10001010 ==> ; 8.625000
-; i=48, idx=48 sq_fp=0090, whole_fp=9, fract_fp=0 (0.00000000)  10010000 ==> ; 9.000000
-; i=49, idx=49 sq_fp=0096, whole_fp=9, fract_fp=6 (0.37500000)  10010110 ==> ; 9.375000
-; i=50, idx=50 sq_fp=009c, whole_fp=9, fract_fp=12 (0.75000000)  10011100 ==> ; 9.750000
-; i=51, idx=51 sq_fp=00a2, whole_fp=10, fract_fp=2 (0.12500000)  10100010 ==> ; 10.125000
-; i=52, idx=52 sq_fp=00a9, whole_fp=10, fract_fp=9 (0.56250000)  10101001 ==> ; 10.562500
-; i=53, idx=53 sq_fp=00af, whole_fp=10, fract_fp=15 (0.93750000)  10101111 ==> ; 10.937500
-; i=54, idx=54 sq_fp=00b6, whole_fp=11, fract_fp=6 (0.37500000)  10110110 ==> ; 11.375000
-; i=55, idx=55 sq_fp=00bd, whole_fp=11, fract_fp=13 (0.81250000)  10111101 ==> ; 11.812500
-; i=56, idx=56 sq_fp=00c4, whole_fp=12, fract_fp=4 (0.25000000)  11000100 ==> ; 12.250000
-; i=57, idx=57 sq_fp=00cb, whole_fp=12, fract_fp=11 (0.68750000)  11001011 ==> ; 12.687500
-; i=58, idx=58 sq_fp=00d2, whole_fp=13, fract_fp=2 (0.12500000)  11010010 ==> ; 13.125000
-; i=59, idx=59 sq_fp=00d9, whole_fp=13, fract_fp=9 (0.56250000)  11011001 ==> ; 13.562500
-; i=60, idx=60 sq_fp=00e1, whole_fp=14, fract_fp=1 (0.06250000)  11100001 ==> ; 14.062500
-; i=61, idx=61 sq_fp=00e8, whole_fp=14, fract_fp=8 (0.50000000)  11101000 ==> ; 14.500000
-; i=62, idx=62 sq_fp=00f0, whole_fp=15, fract_fp=0 (0.00000000)  11110000 ==> ; 15.000000
-; i=63, idx=63 sq_fp=00f8, whole_fp=15, fract_fp=8 (0.50000000)  11111000 ==> ; 15.500000
-; i=64, idx=64 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=65, idx=65 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=66, idx=66 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=67, idx=67 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=68, idx=68 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=69, idx=69 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=70, idx=70 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=71, idx=71 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=72, idx=72 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=73, idx=73 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=74, idx=74 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=75, idx=75 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=76, idx=76 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=77, idx=77 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=78, idx=78 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=79, idx=79 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=80, idx=80 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=81, idx=81 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=82, idx=82 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=83, idx=83 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=84, idx=84 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=85, idx=85 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=86, idx=86 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=87, idx=87 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=88, idx=88 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=89, idx=89 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=90, idx=90 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=91, idx=91 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=92, idx=92 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=93, idx=93 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=94, idx=94 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=95, idx=95 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=96, idx=96 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=97, idx=97 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=98, idx=98 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=99, idx=99 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=100, idx=100 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=101, idx=101 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=102, idx=102 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=103, idx=103 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=104, idx=104 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=105, idx=105 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=106, idx=106 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=107, idx=107 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=108, idx=108 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=109, idx=109 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=110, idx=110 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=111, idx=111 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=112, idx=112 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=113, idx=113 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=114, idx=114 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=115, idx=115 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=116, idx=116 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=117, idx=117 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=118, idx=118 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=119, idx=119 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=120, idx=120 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=121, idx=121 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=122, idx=122 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=123, idx=123 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=124, idx=124 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=125, idx=125 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=126, idx=126 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
-; i=127, idx=127 sq_fp=00ff, whole_fp=15, fract_fp=15 (0.93750000)  11111111 ==> ; 15.937500
+; i=-128, idx=128 fp=ffffff80 fp_whole=fffffff8, fp_fract=0000, printableFp=; 8.000000, fp_bits=10000000 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 8.000000
+; i=-127, idx=129 fp=ffffff81 fp_whole=fffffff8, fp_fract=0001, printableFp=; 8.062500, fp_bits=10000001 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 8.062500
+; i=-126, idx=130 fp=ffffff82 fp_whole=fffffff8, fp_fract=0002, printableFp=; 8.125000, fp_bits=10000010 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 8.125000
+; i=-125, idx=131 fp=ffffff83 fp_whole=fffffff8, fp_fract=0003, printableFp=; 8.187500, fp_bits=10000011 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 8.187500
+; i=-124, idx=132 fp=ffffff84 fp_whole=fffffff8, fp_fract=0004, printableFp=; 8.250000, fp_bits=10000100 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 8.250000
+; i=-123, idx=133 fp=ffffff85 fp_whole=fffffff8, fp_fract=0005, printableFp=; 8.312500, fp_bits=10000101 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 8.312500
+; i=-122, idx=134 fp=ffffff86 fp_whole=fffffff8, fp_fract=0006, printableFp=; 8.375000, fp_bits=10000110 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 8.375000
+; i=-121, idx=135 fp=ffffff87 fp_whole=fffffff8, fp_fract=0007, printableFp=; 8.437500, fp_bits=10000111 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 8.437500
+; i=-120, idx=136 fp=ffffff88 fp_whole=fffffff8, fp_fract=0008, printableFp=; 8.500000, fp_bits=10001000 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 8.500000
+; i=-119, idx=137 fp=ffffff89 fp_whole=fffffff8, fp_fract=0009, printableFp=; 8.562500, fp_bits=10001001 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 8.562500
+; i=-118, idx=138 fp=ffffff8a fp_whole=fffffff8, fp_fract=000a, printableFp=; 8.625000, fp_bits=10001010 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 8.625000
+; i=-117, idx=139 fp=ffffff8b fp_whole=fffffff8, fp_fract=000b, printableFp=; 8.687500, fp_bits=10001011 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 8.687500
+; i=-116, idx=140 fp=ffffff8c fp_whole=fffffff8, fp_fract=000c, printableFp=; 8.750000, fp_bits=10001100 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 8.750000
+; i=-115, idx=141 fp=ffffff8d fp_whole=fffffff8, fp_fract=000d, printableFp=; 8.812500, fp_bits=10001101 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 8.812500
+; i=-114, idx=142 fp=ffffff8e fp_whole=fffffff8, fp_fract=000e, printableFp=; 8.875000, fp_bits=10001110 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 8.875000
+; i=-113, idx=143 fp=ffffff8f fp_whole=fffffff8, fp_fract=000f, printableFp=; 8.937500, fp_bits=10001111 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 8.937500
+; i=-112, idx=144 fp=ffffff90 fp_whole=fffffff9, fp_fract=0000, printableFp=; 9.000000, fp_bits=10010000 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 9.000000
+; i=-111, idx=145 fp=ffffff91 fp_whole=fffffff9, fp_fract=0001, printableFp=; 9.062500, fp_bits=10010001 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 9.062500
+; i=-110, idx=146 fp=ffffff92 fp_whole=fffffff9, fp_fract=0002, printableFp=; 9.125000, fp_bits=10010010 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 9.125000
+; i=-109, idx=147 fp=ffffff93 fp_whole=fffffff9, fp_fract=0003, printableFp=; 9.187500, fp_bits=10010011 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 9.187500
+; i=-108, idx=148 fp=ffffff94 fp_whole=fffffff9, fp_fract=0004, printableFp=; 9.250000, fp_bits=10010100 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 9.250000
+; i=-107, idx=149 fp=ffffff95 fp_whole=fffffff9, fp_fract=0005, printableFp=; 9.312500, fp_bits=10010101 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 9.312500
+; i=-106, idx=150 fp=ffffff96 fp_whole=fffffff9, fp_fract=0006, printableFp=; 9.375000, fp_bits=10010110 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 9.375000
+; i=-105, idx=151 fp=ffffff97 fp_whole=fffffff9, fp_fract=0007, printableFp=; 9.437500, fp_bits=10010111 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 9.437500
+; i=-104, idx=152 fp=ffffff98 fp_whole=fffffff9, fp_fract=0008, printableFp=; 9.500000, fp_bits=10011000 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 9.500000
+; i=-103, idx=153 fp=ffffff99 fp_whole=fffffff9, fp_fract=0009, printableFp=; 9.562500, fp_bits=10011001 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 9.562500
+; i=-102, idx=154 fp=ffffff9a fp_whole=fffffff9, fp_fract=000a, printableFp=; 9.625000, fp_bits=10011010 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 9.625000
+; i=-101, idx=155 fp=ffffff9b fp_whole=fffffff9, fp_fract=000b, printableFp=; 9.687500, fp_bits=10011011 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 9.687500
+; i=-100, idx=156 fp=ffffff9c fp_whole=fffffff9, fp_fract=000c, printableFp=; 9.750000, fp_bits=10011100 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 9.750000
+; i=-99, idx=157 fp=ffffff9d fp_whole=fffffff9, fp_fract=000d, printableFp=; 9.812500, fp_bits=10011101 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 9.812500
+; i=-98, idx=158 fp=ffffff9e fp_whole=fffffff9, fp_fract=000e, printableFp=; 9.875000, fp_bits=10011110 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 9.875000
+; i=-97, idx=159 fp=ffffff9f fp_whole=fffffff9, fp_fract=000f, printableFp=; 9.937500, fp_bits=10011111 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 9.937500
+; i=-96, idx=160 fp=ffffffa0 fp_whole=fffffffa, fp_fract=0000, printableFp=; 10.000000, fp_bits=10100000 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 10.000000
+; i=-95, idx=161 fp=ffffffa1 fp_whole=fffffffa, fp_fract=0001, printableFp=; 10.062500, fp_bits=10100001 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 10.062500
+; i=-94, idx=162 fp=ffffffa2 fp_whole=fffffffa, fp_fract=0002, printableFp=; 10.125000, fp_bits=10100010 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 10.125000
+; i=-93, idx=163 fp=ffffffa3 fp_whole=fffffffa, fp_fract=0003, printableFp=; 10.187500, fp_bits=10100011 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 10.187500
+; i=-92, idx=164 fp=ffffffa4 fp_whole=fffffffa, fp_fract=0004, printableFp=; 10.250000, fp_bits=10100100 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 10.250000
+; i=-91, idx=165 fp=ffffffa5 fp_whole=fffffffa, fp_fract=0005, printableFp=; 10.312500, fp_bits=10100101 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 10.312500
+; i=-90, idx=166 fp=ffffffa6 fp_whole=fffffffa, fp_fract=0006, printableFp=; 10.375000, fp_bits=10100110 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 10.375000
+; i=-89, idx=167 fp=ffffffa7 fp_whole=fffffffa, fp_fract=0007, printableFp=; 10.437500, fp_bits=10100111 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 10.437500
+; i=-88, idx=168 fp=ffffffa8 fp_whole=fffffffa, fp_fract=0008, printableFp=; 10.500000, fp_bits=10101000 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 10.500000
+; i=-87, idx=169 fp=ffffffa9 fp_whole=fffffffa, fp_fract=0009, printableFp=; 10.562500, fp_bits=10101001 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 10.562500
+; i=-86, idx=170 fp=ffffffaa fp_whole=fffffffa, fp_fract=000a, printableFp=; 10.625000, fp_bits=10101010 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 10.625000
+; i=-85, idx=171 fp=ffffffab fp_whole=fffffffa, fp_fract=000b, printableFp=; 10.687500, fp_bits=10101011 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 10.687500
+; i=-84, idx=172 fp=ffffffac fp_whole=fffffffa, fp_fract=000c, printableFp=; 10.750000, fp_bits=10101100 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 10.750000
+; i=-83, idx=173 fp=ffffffad fp_whole=fffffffa, fp_fract=000d, printableFp=; 10.812500, fp_bits=10101101 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 10.812500
+; i=-82, idx=174 fp=ffffffae fp_whole=fffffffa, fp_fract=000e, printableFp=; 10.875000, fp_bits=10101110 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 10.875000
+; i=-81, idx=175 fp=ffffffaf fp_whole=fffffffa, fp_fract=000f, printableFp=; 10.937500, fp_bits=10101111 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 10.937500
+; i=-80, idx=176 fp=ffffffb0 fp_whole=fffffffb, fp_fract=0000, printableFp=; 11.000000, fp_bits=10110000 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 11.000000
+; i=-79, idx=177 fp=ffffffb1 fp_whole=fffffffb, fp_fract=0001, printableFp=; 11.062500, fp_bits=10110001 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 11.062500
+; i=-78, idx=178 fp=ffffffb2 fp_whole=fffffffb, fp_fract=0002, printableFp=; 11.125000, fp_bits=10110010 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 11.125000
+; i=-77, idx=179 fp=ffffffb3 fp_whole=fffffffb, fp_fract=0003, printableFp=; 11.187500, fp_bits=10110011 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 11.187500
+; i=-76, idx=180 fp=ffffffb4 fp_whole=fffffffb, fp_fract=0004, printableFp=; 11.250000, fp_bits=10110100 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 11.250000
+; i=-75, idx=181 fp=ffffffb5 fp_whole=fffffffb, fp_fract=0005, printableFp=; 11.312500, fp_bits=10110101 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 11.312500
+; i=-74, idx=182 fp=ffffffb6 fp_whole=fffffffb, fp_fract=0006, printableFp=; 11.375000, fp_bits=10110110 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 11.375000
+; i=-73, idx=183 fp=ffffffb7 fp_whole=fffffffb, fp_fract=0007, printableFp=; 11.437500, fp_bits=10110111 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 11.437500
+; i=-72, idx=184 fp=ffffffb8 fp_whole=fffffffb, fp_fract=0008, printableFp=; 11.500000, fp_bits=10111000 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 11.500000
+; i=-71, idx=185 fp=ffffffb9 fp_whole=fffffffb, fp_fract=0009, printableFp=; 11.562500, fp_bits=10111001 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 11.562500
+; i=-70, idx=186 fp=ffffffba fp_whole=fffffffb, fp_fract=000a, printableFp=; 11.625000, fp_bits=10111010 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 11.625000
+; i=-69, idx=187 fp=ffffffbb fp_whole=fffffffb, fp_fract=000b, printableFp=; 11.687500, fp_bits=10111011 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 11.687500
+; i=-68, idx=188 fp=ffffffbc fp_whole=fffffffb, fp_fract=000c, printableFp=; 11.750000, fp_bits=10111100 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 11.750000
+; i=-67, idx=189 fp=ffffffbd fp_whole=fffffffb, fp_fract=000d, printableFp=; 11.812500, fp_bits=10111101 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 11.812500
+; i=-66, idx=190 fp=ffffffbe fp_whole=fffffffb, fp_fract=000e, printableFp=; 11.875000, fp_bits=10111110 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 11.875000
+; i=-65, idx=191 fp=ffffffbf fp_whole=fffffffb, fp_fract=000f, printableFp=; 11.937500, fp_bits=10111111 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 11.937500
+; i=-64, idx=192 fp=ffffffc0 fp_whole=fffffffc, fp_fract=0000, printableFp=; 12.000000, fp_bits=11000000 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 12.000000
+; i=-63, idx=193 fp=ffffffc1 fp_whole=fffffffc, fp_fract=0001, printableFp=; 12.062500, fp_bits=11000001 || sq_fp=00f8, sq_fp_whole=15, sq_fp_fract=8 (0.50000000)  11111000 ==> ; 12.062500
+; i=-62, idx=194 fp=ffffffc2 fp_whole=fffffffc, fp_fract=0002, printableFp=; 12.125000, fp_bits=11000010 || sq_fp=00f0, sq_fp_whole=15, sq_fp_fract=0 (0.00000000)  11110000 ==> ; 12.125000
+; i=-61, idx=195 fp=ffffffc3 fp_whole=fffffffc, fp_fract=0003, printableFp=; 12.187500, fp_bits=11000011 || sq_fp=00e8, sq_fp_whole=14, sq_fp_fract=8 (0.50000000)  11101000 ==> ; 12.187500
+; i=-60, idx=196 fp=ffffffc4 fp_whole=fffffffc, fp_fract=0004, printableFp=; 12.250000, fp_bits=11000100 || sq_fp=00e1, sq_fp_whole=14, sq_fp_fract=1 (0.06250000)  11100001 ==> ; 12.250000
+; i=-59, idx=197 fp=ffffffc5 fp_whole=fffffffc, fp_fract=0005, printableFp=; 12.312500, fp_bits=11000101 || sq_fp=00d9, sq_fp_whole=13, sq_fp_fract=9 (0.56250000)  11011001 ==> ; 12.312500
+; i=-58, idx=198 fp=ffffffc6 fp_whole=fffffffc, fp_fract=0006, printableFp=; 12.375000, fp_bits=11000110 || sq_fp=00d2, sq_fp_whole=13, sq_fp_fract=2 (0.12500000)  11010010 ==> ; 12.375000
+; i=-57, idx=199 fp=ffffffc7 fp_whole=fffffffc, fp_fract=0007, printableFp=; 12.437500, fp_bits=11000111 || sq_fp=00cb, sq_fp_whole=12, sq_fp_fract=11 (0.68750000)  11001011 ==> ; 12.437500
+; i=-56, idx=200 fp=ffffffc8 fp_whole=fffffffc, fp_fract=0008, printableFp=; 12.500000, fp_bits=11001000 || sq_fp=00c4, sq_fp_whole=12, sq_fp_fract=4 (0.25000000)  11000100 ==> ; 12.500000
+; i=-55, idx=201 fp=ffffffc9 fp_whole=fffffffc, fp_fract=0009, printableFp=; 12.562500, fp_bits=11001001 || sq_fp=00bd, sq_fp_whole=11, sq_fp_fract=13 (0.81250000)  10111101 ==> ; 12.562500
+; i=-54, idx=202 fp=ffffffca fp_whole=fffffffc, fp_fract=000a, printableFp=; 12.625000, fp_bits=11001010 || sq_fp=00b6, sq_fp_whole=11, sq_fp_fract=6 (0.37500000)  10110110 ==> ; 12.625000
+; i=-53, idx=203 fp=ffffffcb fp_whole=fffffffc, fp_fract=000b, printableFp=; 12.687500, fp_bits=11001011 || sq_fp=00af, sq_fp_whole=10, sq_fp_fract=15 (0.93750000)  10101111 ==> ; 12.687500
+; i=-52, idx=204 fp=ffffffcc fp_whole=fffffffc, fp_fract=000c, printableFp=; 12.750000, fp_bits=11001100 || sq_fp=00a9, sq_fp_whole=10, sq_fp_fract=9 (0.56250000)  10101001 ==> ; 12.750000
+; i=-51, idx=205 fp=ffffffcd fp_whole=fffffffc, fp_fract=000d, printableFp=; 12.812500, fp_bits=11001101 || sq_fp=00a2, sq_fp_whole=10, sq_fp_fract=2 (0.12500000)  10100010 ==> ; 12.812500
+; i=-50, idx=206 fp=ffffffce fp_whole=fffffffc, fp_fract=000e, printableFp=; 12.875000, fp_bits=11001110 || sq_fp=009c, sq_fp_whole=9, sq_fp_fract=12 (0.75000000)  10011100 ==> ; 12.875000
+; i=-49, idx=207 fp=ffffffcf fp_whole=fffffffc, fp_fract=000f, printableFp=; 12.937500, fp_bits=11001111 || sq_fp=0096, sq_fp_whole=9, sq_fp_fract=6 (0.37500000)  10010110 ==> ; 12.937500
+; i=-48, idx=208 fp=ffffffd0 fp_whole=fffffffd, fp_fract=0000, printableFp=; 13.000000, fp_bits=11010000 || sq_fp=0090, sq_fp_whole=9, sq_fp_fract=0 (0.00000000)  10010000 ==> ; 13.000000
+; i=-47, idx=209 fp=ffffffd1 fp_whole=fffffffd, fp_fract=0001, printableFp=; 13.062500, fp_bits=11010001 || sq_fp=008a, sq_fp_whole=8, sq_fp_fract=10 (0.62500000)  10001010 ==> ; 13.062500
+; i=-46, idx=210 fp=ffffffd2 fp_whole=fffffffd, fp_fract=0002, printableFp=; 13.125000, fp_bits=11010010 || sq_fp=0084, sq_fp_whole=8, sq_fp_fract=4 (0.25000000)  10000100 ==> ; 13.125000
+; i=-45, idx=211 fp=ffffffd3 fp_whole=fffffffd, fp_fract=0003, printableFp=; 13.187500, fp_bits=11010011 || sq_fp=007e, sq_fp_whole=7, sq_fp_fract=14 (0.87500000)  01111110 ==> ; 13.187500
+; i=-44, idx=212 fp=ffffffd4 fp_whole=fffffffd, fp_fract=0004, printableFp=; 13.250000, fp_bits=11010100 || sq_fp=0079, sq_fp_whole=7, sq_fp_fract=9 (0.56250000)  01111001 ==> ; 13.250000
+; i=-43, idx=213 fp=ffffffd5 fp_whole=fffffffd, fp_fract=0005, printableFp=; 13.312500, fp_bits=11010101 || sq_fp=0073, sq_fp_whole=7, sq_fp_fract=3 (0.18750000)  01110011 ==> ; 13.312500
+; i=-42, idx=214 fp=ffffffd6 fp_whole=fffffffd, fp_fract=0006, printableFp=; 13.375000, fp_bits=11010110 || sq_fp=006e, sq_fp_whole=6, sq_fp_fract=14 (0.87500000)  01101110 ==> ; 13.375000
+; i=-41, idx=215 fp=ffffffd7 fp_whole=fffffffd, fp_fract=0007, printableFp=; 13.437500, fp_bits=11010111 || sq_fp=0069, sq_fp_whole=6, sq_fp_fract=9 (0.56250000)  01101001 ==> ; 13.437500
+; i=-40, idx=216 fp=ffffffd8 fp_whole=fffffffd, fp_fract=0008, printableFp=; 13.500000, fp_bits=11011000 || sq_fp=0064, sq_fp_whole=6, sq_fp_fract=4 (0.25000000)  01100100 ==> ; 13.500000
+; i=-39, idx=217 fp=ffffffd9 fp_whole=fffffffd, fp_fract=0009, printableFp=; 13.562500, fp_bits=11011001 || sq_fp=005f, sq_fp_whole=5, sq_fp_fract=15 (0.93750000)  01011111 ==> ; 13.562500
+; i=-38, idx=218 fp=ffffffda fp_whole=fffffffd, fp_fract=000a, printableFp=; 13.625000, fp_bits=11011010 || sq_fp=005a, sq_fp_whole=5, sq_fp_fract=10 (0.62500000)  01011010 ==> ; 13.625000
+; i=-37, idx=219 fp=ffffffdb fp_whole=fffffffd, fp_fract=000b, printableFp=; 13.687500, fp_bits=11011011 || sq_fp=0055, sq_fp_whole=5, sq_fp_fract=5 (0.31250000)  01010101 ==> ; 13.687500
+; i=-36, idx=220 fp=ffffffdc fp_whole=fffffffd, fp_fract=000c, printableFp=; 13.750000, fp_bits=11011100 || sq_fp=0051, sq_fp_whole=5, sq_fp_fract=1 (0.06250000)  01010001 ==> ; 13.750000
+; i=-35, idx=221 fp=ffffffdd fp_whole=fffffffd, fp_fract=000d, printableFp=; 13.812500, fp_bits=11011101 || sq_fp=004c, sq_fp_whole=4, sq_fp_fract=12 (0.75000000)  01001100 ==> ; 13.812500
+; i=-34, idx=222 fp=ffffffde fp_whole=fffffffd, fp_fract=000e, printableFp=; 13.875000, fp_bits=11011110 || sq_fp=0048, sq_fp_whole=4, sq_fp_fract=8 (0.50000000)  01001000 ==> ; 13.875000
+; i=-33, idx=223 fp=ffffffdf fp_whole=fffffffd, fp_fract=000f, printableFp=; 13.937500, fp_bits=11011111 || sq_fp=0044, sq_fp_whole=4, sq_fp_fract=4 (0.25000000)  01000100 ==> ; 13.937500
+; i=-32, idx=224 fp=ffffffe0 fp_whole=fffffffe, fp_fract=0000, printableFp=; 14.000000, fp_bits=11100000 || sq_fp=0040, sq_fp_whole=4, sq_fp_fract=0 (0.00000000)  01000000 ==> ; 14.000000
+; i=-31, idx=225 fp=ffffffe1 fp_whole=fffffffe, fp_fract=0001, printableFp=; 14.062500, fp_bits=11100001 || sq_fp=003c, sq_fp_whole=3, sq_fp_fract=12 (0.75000000)  00111100 ==> ; 14.062500
+; i=-30, idx=226 fp=ffffffe2 fp_whole=fffffffe, fp_fract=0002, printableFp=; 14.125000, fp_bits=11100010 || sq_fp=0038, sq_fp_whole=3, sq_fp_fract=8 (0.50000000)  00111000 ==> ; 14.125000
+; i=-29, idx=227 fp=ffffffe3 fp_whole=fffffffe, fp_fract=0003, printableFp=; 14.187500, fp_bits=11100011 || sq_fp=0034, sq_fp_whole=3, sq_fp_fract=4 (0.25000000)  00110100 ==> ; 14.187500
+; i=-28, idx=228 fp=ffffffe4 fp_whole=fffffffe, fp_fract=0004, printableFp=; 14.250000, fp_bits=11100100 || sq_fp=0031, sq_fp_whole=3, sq_fp_fract=1 (0.06250000)  00110001 ==> ; 14.250000
+; i=-27, idx=229 fp=ffffffe5 fp_whole=fffffffe, fp_fract=0005, printableFp=; 14.312500, fp_bits=11100101 || sq_fp=002d, sq_fp_whole=2, sq_fp_fract=13 (0.81250000)  00101101 ==> ; 14.312500
+; i=-26, idx=230 fp=ffffffe6 fp_whole=fffffffe, fp_fract=0006, printableFp=; 14.375000, fp_bits=11100110 || sq_fp=002a, sq_fp_whole=2, sq_fp_fract=10 (0.62500000)  00101010 ==> ; 14.375000
+; i=-25, idx=231 fp=ffffffe7 fp_whole=fffffffe, fp_fract=0007, printableFp=; 14.437500, fp_bits=11100111 || sq_fp=0027, sq_fp_whole=2, sq_fp_fract=7 (0.43750000)  00100111 ==> ; 14.437500
+; i=-24, idx=232 fp=ffffffe8 fp_whole=fffffffe, fp_fract=0008, printableFp=; 14.500000, fp_bits=11101000 || sq_fp=0024, sq_fp_whole=2, sq_fp_fract=4 (0.25000000)  00100100 ==> ; 14.500000
+; i=-23, idx=233 fp=ffffffe9 fp_whole=fffffffe, fp_fract=0009, printableFp=; 14.562500, fp_bits=11101001 || sq_fp=0021, sq_fp_whole=2, sq_fp_fract=1 (0.06250000)  00100001 ==> ; 14.562500
+; i=-22, idx=234 fp=ffffffea fp_whole=fffffffe, fp_fract=000a, printableFp=; 14.625000, fp_bits=11101010 || sq_fp=001e, sq_fp_whole=1, sq_fp_fract=14 (0.87500000)  00011110 ==> ; 14.625000
+; i=-21, idx=235 fp=ffffffeb fp_whole=fffffffe, fp_fract=000b, printableFp=; 14.687500, fp_bits=11101011 || sq_fp=001b, sq_fp_whole=1, sq_fp_fract=11 (0.68750000)  00011011 ==> ; 14.687500
+; i=-20, idx=236 fp=ffffffec fp_whole=fffffffe, fp_fract=000c, printableFp=; 14.750000, fp_bits=11101100 || sq_fp=0019, sq_fp_whole=1, sq_fp_fract=9 (0.56250000)  00011001 ==> ; 14.750000
+; i=-19, idx=237 fp=ffffffed fp_whole=fffffffe, fp_fract=000d, printableFp=; 14.812500, fp_bits=11101101 || sq_fp=0016, sq_fp_whole=1, sq_fp_fract=6 (0.37500000)  00010110 ==> ; 14.812500
+; i=-18, idx=238 fp=ffffffee fp_whole=fffffffe, fp_fract=000e, printableFp=; 14.875000, fp_bits=11101110 || sq_fp=0014, sq_fp_whole=1, sq_fp_fract=4 (0.25000000)  00010100 ==> ; 14.875000
+; i=-17, idx=239 fp=ffffffef fp_whole=fffffffe, fp_fract=000f, printableFp=; 14.937500, fp_bits=11101111 || sq_fp=0012, sq_fp_whole=1, sq_fp_fract=2 (0.12500000)  00010010 ==> ; 14.937500
+; i=-16, idx=240 fp=fffffff0 fp_whole=ffffffff, fp_fract=0000, printableFp=; 15.000000, fp_bits=11110000 || sq_fp=0010, sq_fp_whole=1, sq_fp_fract=0 (0.00000000)  00010000 ==> ; 15.000000
+; i=-15, idx=241 fp=fffffff1 fp_whole=ffffffff, fp_fract=0001, printableFp=; 15.062500, fp_bits=11110001 || sq_fp=000e, sq_fp_whole=0, sq_fp_fract=14 (0.87500000)  00001110 ==> ; 15.062500
+; i=-14, idx=242 fp=fffffff2 fp_whole=ffffffff, fp_fract=0002, printableFp=; 15.125000, fp_bits=11110010 || sq_fp=000c, sq_fp_whole=0, sq_fp_fract=12 (0.75000000)  00001100 ==> ; 15.125000
+; i=-13, idx=243 fp=fffffff3 fp_whole=ffffffff, fp_fract=0003, printableFp=; 15.187500, fp_bits=11110011 || sq_fp=000a, sq_fp_whole=0, sq_fp_fract=10 (0.62500000)  00001010 ==> ; 15.187500
+; i=-12, idx=244 fp=fffffff4 fp_whole=ffffffff, fp_fract=0004, printableFp=; 15.250000, fp_bits=11110100 || sq_fp=0009, sq_fp_whole=0, sq_fp_fract=9 (0.56250000)  00001001 ==> ; 15.250000
+; i=-11, idx=245 fp=fffffff5 fp_whole=ffffffff, fp_fract=0005, printableFp=; 15.312500, fp_bits=11110101 || sq_fp=0007, sq_fp_whole=0, sq_fp_fract=7 (0.43750000)  00000111 ==> ; 15.312500
+; i=-10, idx=246 fp=fffffff6 fp_whole=ffffffff, fp_fract=0006, printableFp=; 15.375000, fp_bits=11110110 || sq_fp=0006, sq_fp_whole=0, sq_fp_fract=6 (0.37500000)  00000110 ==> ; 15.375000
+; i=-9, idx=247 fp=fffffff7 fp_whole=ffffffff, fp_fract=0007, printableFp=; 15.437500, fp_bits=11110111 || sq_fp=0005, sq_fp_whole=0, sq_fp_fract=5 (0.31250000)  00000101 ==> ; 15.437500
+; i=-8, idx=248 fp=fffffff8 fp_whole=ffffffff, fp_fract=0008, printableFp=; 15.500000, fp_bits=11111000 || sq_fp=0004, sq_fp_whole=0, sq_fp_fract=4 (0.25000000)  00000100 ==> ; 15.500000
+; i=-7, idx=249 fp=fffffff9 fp_whole=ffffffff, fp_fract=0009, printableFp=; 15.562500, fp_bits=11111001 || sq_fp=0003, sq_fp_whole=0, sq_fp_fract=3 (0.18750000)  00000011 ==> ; 15.562500
+; i=-6, idx=250 fp=fffffffa fp_whole=ffffffff, fp_fract=000a, printableFp=; 15.625000, fp_bits=11111010 || sq_fp=0002, sq_fp_whole=0, sq_fp_fract=2 (0.12500000)  00000010 ==> ; 15.625000
+; i=-5, idx=251 fp=fffffffb fp_whole=ffffffff, fp_fract=000b, printableFp=; 15.687500, fp_bits=11111011 || sq_fp=0001, sq_fp_whole=0, sq_fp_fract=1 (0.06250000)  00000001 ==> ; 15.687500
+; i=-4, idx=252 fp=fffffffc fp_whole=ffffffff, fp_fract=000c, printableFp=; 15.750000, fp_bits=11111100 || sq_fp=0001, sq_fp_whole=0, sq_fp_fract=1 (0.06250000)  00000001 ==> ; 15.750000
+; i=-3, idx=253 fp=fffffffd fp_whole=ffffffff, fp_fract=000d, printableFp=; 15.812500, fp_bits=11111101 || sq_fp=0000, sq_fp_whole=0, sq_fp_fract=0 (0.00000000)  00000000 ==> ; 15.812500
+; i=-2, idx=254 fp=fffffffe fp_whole=ffffffff, fp_fract=000e, printableFp=; 15.875000, fp_bits=11111110 || sq_fp=0000, sq_fp_whole=0, sq_fp_fract=0 (0.00000000)  00000000 ==> ; 15.875000
+; i=-1, idx=255 fp=ffffffff fp_whole=ffffffff, fp_fract=000f, printableFp=; 15.937500, fp_bits=11111111 || sq_fp=0000, sq_fp_whole=0, sq_fp_fract=0 (0.00000000)  00000000 ==> ; 15.937500
+; i=0, idx=0 fp=0000 fp_whole=0000, fp_fract=0000, printableFp=; 0.000000, fp_bits=00000000 || sq_fp=0000, sq_fp_whole=0, sq_fp_fract=0 (0.00000000)  00000000 ==> ; 0.000000
+; i=1, idx=1 fp=0001 fp_whole=0000, fp_fract=0001, printableFp=; 0.062500, fp_bits=00000001 || sq_fp=0000, sq_fp_whole=0, sq_fp_fract=0 (0.00000000)  00000000 ==> ; 0.062500
+; i=2, idx=2 fp=0002 fp_whole=0000, fp_fract=0002, printableFp=; 0.125000, fp_bits=00000010 || sq_fp=0000, sq_fp_whole=0, sq_fp_fract=0 (0.00000000)  00000000 ==> ; 0.125000
+; i=3, idx=3 fp=0003 fp_whole=0000, fp_fract=0003, printableFp=; 0.187500, fp_bits=00000011 || sq_fp=0000, sq_fp_whole=0, sq_fp_fract=0 (0.00000000)  00000000 ==> ; 0.187500
+; i=4, idx=4 fp=0004 fp_whole=0000, fp_fract=0004, printableFp=; 0.250000, fp_bits=00000100 || sq_fp=0001, sq_fp_whole=0, sq_fp_fract=1 (0.06250000)  00000001 ==> ; 0.250000
+; i=5, idx=5 fp=0005 fp_whole=0000, fp_fract=0005, printableFp=; 0.312500, fp_bits=00000101 || sq_fp=0001, sq_fp_whole=0, sq_fp_fract=1 (0.06250000)  00000001 ==> ; 0.312500
+; i=6, idx=6 fp=0006 fp_whole=0000, fp_fract=0006, printableFp=; 0.375000, fp_bits=00000110 || sq_fp=0002, sq_fp_whole=0, sq_fp_fract=2 (0.12500000)  00000010 ==> ; 0.375000
+; i=7, idx=7 fp=0007 fp_whole=0000, fp_fract=0007, printableFp=; 0.437500, fp_bits=00000111 || sq_fp=0003, sq_fp_whole=0, sq_fp_fract=3 (0.18750000)  00000011 ==> ; 0.437500
+; i=8, idx=8 fp=0008 fp_whole=0000, fp_fract=0008, printableFp=; 0.500000, fp_bits=00001000 || sq_fp=0004, sq_fp_whole=0, sq_fp_fract=4 (0.25000000)  00000100 ==> ; 0.500000
+; i=9, idx=9 fp=0009 fp_whole=0000, fp_fract=0009, printableFp=; 0.562500, fp_bits=00001001 || sq_fp=0005, sq_fp_whole=0, sq_fp_fract=5 (0.31250000)  00000101 ==> ; 0.562500
+; i=10, idx=10 fp=000a fp_whole=0000, fp_fract=000a, printableFp=; 0.625000, fp_bits=00001010 || sq_fp=0006, sq_fp_whole=0, sq_fp_fract=6 (0.37500000)  00000110 ==> ; 0.625000
+; i=11, idx=11 fp=000b fp_whole=0000, fp_fract=000b, printableFp=; 0.687500, fp_bits=00001011 || sq_fp=0007, sq_fp_whole=0, sq_fp_fract=7 (0.43750000)  00000111 ==> ; 0.687500
+; i=12, idx=12 fp=000c fp_whole=0000, fp_fract=000c, printableFp=; 0.750000, fp_bits=00001100 || sq_fp=0009, sq_fp_whole=0, sq_fp_fract=9 (0.56250000)  00001001 ==> ; 0.750000
+; i=13, idx=13 fp=000d fp_whole=0000, fp_fract=000d, printableFp=; 0.812500, fp_bits=00001101 || sq_fp=000a, sq_fp_whole=0, sq_fp_fract=10 (0.62500000)  00001010 ==> ; 0.812500
+; i=14, idx=14 fp=000e fp_whole=0000, fp_fract=000e, printableFp=; 0.875000, fp_bits=00001110 || sq_fp=000c, sq_fp_whole=0, sq_fp_fract=12 (0.75000000)  00001100 ==> ; 0.875000
+; i=15, idx=15 fp=000f fp_whole=0000, fp_fract=000f, printableFp=; 0.937500, fp_bits=00001111 || sq_fp=000e, sq_fp_whole=0, sq_fp_fract=14 (0.87500000)  00001110 ==> ; 0.937500
+; i=16, idx=16 fp=0010 fp_whole=0001, fp_fract=0000, printableFp=; 1.000000, fp_bits=00010000 || sq_fp=0010, sq_fp_whole=1, sq_fp_fract=0 (0.00000000)  00010000 ==> ; 1.000000
+; i=17, idx=17 fp=0011 fp_whole=0001, fp_fract=0001, printableFp=; 1.062500, fp_bits=00010001 || sq_fp=0012, sq_fp_whole=1, sq_fp_fract=2 (0.12500000)  00010010 ==> ; 1.062500
+; i=18, idx=18 fp=0012 fp_whole=0001, fp_fract=0002, printableFp=; 1.125000, fp_bits=00010010 || sq_fp=0014, sq_fp_whole=1, sq_fp_fract=4 (0.25000000)  00010100 ==> ; 1.125000
+; i=19, idx=19 fp=0013 fp_whole=0001, fp_fract=0003, printableFp=; 1.187500, fp_bits=00010011 || sq_fp=0016, sq_fp_whole=1, sq_fp_fract=6 (0.37500000)  00010110 ==> ; 1.187500
+; i=20, idx=20 fp=0014 fp_whole=0001, fp_fract=0004, printableFp=; 1.250000, fp_bits=00010100 || sq_fp=0019, sq_fp_whole=1, sq_fp_fract=9 (0.56250000)  00011001 ==> ; 1.250000
+; i=21, idx=21 fp=0015 fp_whole=0001, fp_fract=0005, printableFp=; 1.312500, fp_bits=00010101 || sq_fp=001b, sq_fp_whole=1, sq_fp_fract=11 (0.68750000)  00011011 ==> ; 1.312500
+; i=22, idx=22 fp=0016 fp_whole=0001, fp_fract=0006, printableFp=; 1.375000, fp_bits=00010110 || sq_fp=001e, sq_fp_whole=1, sq_fp_fract=14 (0.87500000)  00011110 ==> ; 1.375000
+; i=23, idx=23 fp=0017 fp_whole=0001, fp_fract=0007, printableFp=; 1.437500, fp_bits=00010111 || sq_fp=0021, sq_fp_whole=2, sq_fp_fract=1 (0.06250000)  00100001 ==> ; 1.437500
+; i=24, idx=24 fp=0018 fp_whole=0001, fp_fract=0008, printableFp=; 1.500000, fp_bits=00011000 || sq_fp=0024, sq_fp_whole=2, sq_fp_fract=4 (0.25000000)  00100100 ==> ; 1.500000
+; i=25, idx=25 fp=0019 fp_whole=0001, fp_fract=0009, printableFp=; 1.562500, fp_bits=00011001 || sq_fp=0027, sq_fp_whole=2, sq_fp_fract=7 (0.43750000)  00100111 ==> ; 1.562500
+; i=26, idx=26 fp=001a fp_whole=0001, fp_fract=000a, printableFp=; 1.625000, fp_bits=00011010 || sq_fp=002a, sq_fp_whole=2, sq_fp_fract=10 (0.62500000)  00101010 ==> ; 1.625000
+; i=27, idx=27 fp=001b fp_whole=0001, fp_fract=000b, printableFp=; 1.687500, fp_bits=00011011 || sq_fp=002d, sq_fp_whole=2, sq_fp_fract=13 (0.81250000)  00101101 ==> ; 1.687500
+; i=28, idx=28 fp=001c fp_whole=0001, fp_fract=000c, printableFp=; 1.750000, fp_bits=00011100 || sq_fp=0031, sq_fp_whole=3, sq_fp_fract=1 (0.06250000)  00110001 ==> ; 1.750000
+; i=29, idx=29 fp=001d fp_whole=0001, fp_fract=000d, printableFp=; 1.812500, fp_bits=00011101 || sq_fp=0034, sq_fp_whole=3, sq_fp_fract=4 (0.25000000)  00110100 ==> ; 1.812500
+; i=30, idx=30 fp=001e fp_whole=0001, fp_fract=000e, printableFp=; 1.875000, fp_bits=00011110 || sq_fp=0038, sq_fp_whole=3, sq_fp_fract=8 (0.50000000)  00111000 ==> ; 1.875000
+; i=31, idx=31 fp=001f fp_whole=0001, fp_fract=000f, printableFp=; 1.937500, fp_bits=00011111 || sq_fp=003c, sq_fp_whole=3, sq_fp_fract=12 (0.75000000)  00111100 ==> ; 1.937500
+; i=32, idx=32 fp=0020 fp_whole=0002, fp_fract=0000, printableFp=; 2.000000, fp_bits=00100000 || sq_fp=0040, sq_fp_whole=4, sq_fp_fract=0 (0.00000000)  01000000 ==> ; 2.000000
+; i=33, idx=33 fp=0021 fp_whole=0002, fp_fract=0001, printableFp=; 2.062500, fp_bits=00100001 || sq_fp=0044, sq_fp_whole=4, sq_fp_fract=4 (0.25000000)  01000100 ==> ; 2.062500
+; i=34, idx=34 fp=0022 fp_whole=0002, fp_fract=0002, printableFp=; 2.125000, fp_bits=00100010 || sq_fp=0048, sq_fp_whole=4, sq_fp_fract=8 (0.50000000)  01001000 ==> ; 2.125000
+; i=35, idx=35 fp=0023 fp_whole=0002, fp_fract=0003, printableFp=; 2.187500, fp_bits=00100011 || sq_fp=004c, sq_fp_whole=4, sq_fp_fract=12 (0.75000000)  01001100 ==> ; 2.187500
+; i=36, idx=36 fp=0024 fp_whole=0002, fp_fract=0004, printableFp=; 2.250000, fp_bits=00100100 || sq_fp=0051, sq_fp_whole=5, sq_fp_fract=1 (0.06250000)  01010001 ==> ; 2.250000
+; i=37, idx=37 fp=0025 fp_whole=0002, fp_fract=0005, printableFp=; 2.312500, fp_bits=00100101 || sq_fp=0055, sq_fp_whole=5, sq_fp_fract=5 (0.31250000)  01010101 ==> ; 2.312500
+; i=38, idx=38 fp=0026 fp_whole=0002, fp_fract=0006, printableFp=; 2.375000, fp_bits=00100110 || sq_fp=005a, sq_fp_whole=5, sq_fp_fract=10 (0.62500000)  01011010 ==> ; 2.375000
+; i=39, idx=39 fp=0027 fp_whole=0002, fp_fract=0007, printableFp=; 2.437500, fp_bits=00100111 || sq_fp=005f, sq_fp_whole=5, sq_fp_fract=15 (0.93750000)  01011111 ==> ; 2.437500
+; i=40, idx=40 fp=0028 fp_whole=0002, fp_fract=0008, printableFp=; 2.500000, fp_bits=00101000 || sq_fp=0064, sq_fp_whole=6, sq_fp_fract=4 (0.25000000)  01100100 ==> ; 2.500000
+; i=41, idx=41 fp=0029 fp_whole=0002, fp_fract=0009, printableFp=; 2.562500, fp_bits=00101001 || sq_fp=0069, sq_fp_whole=6, sq_fp_fract=9 (0.56250000)  01101001 ==> ; 2.562500
+; i=42, idx=42 fp=002a fp_whole=0002, fp_fract=000a, printableFp=; 2.625000, fp_bits=00101010 || sq_fp=006e, sq_fp_whole=6, sq_fp_fract=14 (0.87500000)  01101110 ==> ; 2.625000
+; i=43, idx=43 fp=002b fp_whole=0002, fp_fract=000b, printableFp=; 2.687500, fp_bits=00101011 || sq_fp=0073, sq_fp_whole=7, sq_fp_fract=3 (0.18750000)  01110011 ==> ; 2.687500
+; i=44, idx=44 fp=002c fp_whole=0002, fp_fract=000c, printableFp=; 2.750000, fp_bits=00101100 || sq_fp=0079, sq_fp_whole=7, sq_fp_fract=9 (0.56250000)  01111001 ==> ; 2.750000
+; i=45, idx=45 fp=002d fp_whole=0002, fp_fract=000d, printableFp=; 2.812500, fp_bits=00101101 || sq_fp=007e, sq_fp_whole=7, sq_fp_fract=14 (0.87500000)  01111110 ==> ; 2.812500
+; i=46, idx=46 fp=002e fp_whole=0002, fp_fract=000e, printableFp=; 2.875000, fp_bits=00101110 || sq_fp=0084, sq_fp_whole=8, sq_fp_fract=4 (0.25000000)  10000100 ==> ; 2.875000
+; i=47, idx=47 fp=002f fp_whole=0002, fp_fract=000f, printableFp=; 2.937500, fp_bits=00101111 || sq_fp=008a, sq_fp_whole=8, sq_fp_fract=10 (0.62500000)  10001010 ==> ; 2.937500
+; i=48, idx=48 fp=0030 fp_whole=0003, fp_fract=0000, printableFp=; 3.000000, fp_bits=00110000 || sq_fp=0090, sq_fp_whole=9, sq_fp_fract=0 (0.00000000)  10010000 ==> ; 3.000000
+; i=49, idx=49 fp=0031 fp_whole=0003, fp_fract=0001, printableFp=; 3.062500, fp_bits=00110001 || sq_fp=0096, sq_fp_whole=9, sq_fp_fract=6 (0.37500000)  10010110 ==> ; 3.062500
+; i=50, idx=50 fp=0032 fp_whole=0003, fp_fract=0002, printableFp=; 3.125000, fp_bits=00110010 || sq_fp=009c, sq_fp_whole=9, sq_fp_fract=12 (0.75000000)  10011100 ==> ; 3.125000
+; i=51, idx=51 fp=0033 fp_whole=0003, fp_fract=0003, printableFp=; 3.187500, fp_bits=00110011 || sq_fp=00a2, sq_fp_whole=10, sq_fp_fract=2 (0.12500000)  10100010 ==> ; 3.187500
+; i=52, idx=52 fp=0034 fp_whole=0003, fp_fract=0004, printableFp=; 3.250000, fp_bits=00110100 || sq_fp=00a9, sq_fp_whole=10, sq_fp_fract=9 (0.56250000)  10101001 ==> ; 3.250000
+; i=53, idx=53 fp=0035 fp_whole=0003, fp_fract=0005, printableFp=; 3.312500, fp_bits=00110101 || sq_fp=00af, sq_fp_whole=10, sq_fp_fract=15 (0.93750000)  10101111 ==> ; 3.312500
+; i=54, idx=54 fp=0036 fp_whole=0003, fp_fract=0006, printableFp=; 3.375000, fp_bits=00110110 || sq_fp=00b6, sq_fp_whole=11, sq_fp_fract=6 (0.37500000)  10110110 ==> ; 3.375000
+; i=55, idx=55 fp=0037 fp_whole=0003, fp_fract=0007, printableFp=; 3.437500, fp_bits=00110111 || sq_fp=00bd, sq_fp_whole=11, sq_fp_fract=13 (0.81250000)  10111101 ==> ; 3.437500
+; i=56, idx=56 fp=0038 fp_whole=0003, fp_fract=0008, printableFp=; 3.500000, fp_bits=00111000 || sq_fp=00c4, sq_fp_whole=12, sq_fp_fract=4 (0.25000000)  11000100 ==> ; 3.500000
+; i=57, idx=57 fp=0039 fp_whole=0003, fp_fract=0009, printableFp=; 3.562500, fp_bits=00111001 || sq_fp=00cb, sq_fp_whole=12, sq_fp_fract=11 (0.68750000)  11001011 ==> ; 3.562500
+; i=58, idx=58 fp=003a fp_whole=0003, fp_fract=000a, printableFp=; 3.625000, fp_bits=00111010 || sq_fp=00d2, sq_fp_whole=13, sq_fp_fract=2 (0.12500000)  11010010 ==> ; 3.625000
+; i=59, idx=59 fp=003b fp_whole=0003, fp_fract=000b, printableFp=; 3.687500, fp_bits=00111011 || sq_fp=00d9, sq_fp_whole=13, sq_fp_fract=9 (0.56250000)  11011001 ==> ; 3.687500
+; i=60, idx=60 fp=003c fp_whole=0003, fp_fract=000c, printableFp=; 3.750000, fp_bits=00111100 || sq_fp=00e1, sq_fp_whole=14, sq_fp_fract=1 (0.06250000)  11100001 ==> ; 3.750000
+; i=61, idx=61 fp=003d fp_whole=0003, fp_fract=000d, printableFp=; 3.812500, fp_bits=00111101 || sq_fp=00e8, sq_fp_whole=14, sq_fp_fract=8 (0.50000000)  11101000 ==> ; 3.812500
+; i=62, idx=62 fp=003e fp_whole=0003, fp_fract=000e, printableFp=; 3.875000, fp_bits=00111110 || sq_fp=00f0, sq_fp_whole=15, sq_fp_fract=0 (0.00000000)  11110000 ==> ; 3.875000
+; i=63, idx=63 fp=003f fp_whole=0003, fp_fract=000f, printableFp=; 3.937500, fp_bits=00111111 || sq_fp=00f8, sq_fp_whole=15, sq_fp_fract=8 (0.50000000)  11111000 ==> ; 3.937500
+; i=64, idx=64 fp=0040 fp_whole=0004, fp_fract=0000, printableFp=; 4.000000, fp_bits=01000000 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 4.000000
+; i=65, idx=65 fp=0041 fp_whole=0004, fp_fract=0001, printableFp=; 4.062500, fp_bits=01000001 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 4.062500
+; i=66, idx=66 fp=0042 fp_whole=0004, fp_fract=0002, printableFp=; 4.125000, fp_bits=01000010 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 4.125000
+; i=67, idx=67 fp=0043 fp_whole=0004, fp_fract=0003, printableFp=; 4.187500, fp_bits=01000011 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 4.187500
+; i=68, idx=68 fp=0044 fp_whole=0004, fp_fract=0004, printableFp=; 4.250000, fp_bits=01000100 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 4.250000
+; i=69, idx=69 fp=0045 fp_whole=0004, fp_fract=0005, printableFp=; 4.312500, fp_bits=01000101 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 4.312500
+; i=70, idx=70 fp=0046 fp_whole=0004, fp_fract=0006, printableFp=; 4.375000, fp_bits=01000110 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 4.375000
+; i=71, idx=71 fp=0047 fp_whole=0004, fp_fract=0007, printableFp=; 4.437500, fp_bits=01000111 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 4.437500
+; i=72, idx=72 fp=0048 fp_whole=0004, fp_fract=0008, printableFp=; 4.500000, fp_bits=01001000 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 4.500000
+; i=73, idx=73 fp=0049 fp_whole=0004, fp_fract=0009, printableFp=; 4.562500, fp_bits=01001001 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 4.562500
+; i=74, idx=74 fp=004a fp_whole=0004, fp_fract=000a, printableFp=; 4.625000, fp_bits=01001010 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 4.625000
+; i=75, idx=75 fp=004b fp_whole=0004, fp_fract=000b, printableFp=; 4.687500, fp_bits=01001011 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 4.687500
+; i=76, idx=76 fp=004c fp_whole=0004, fp_fract=000c, printableFp=; 4.750000, fp_bits=01001100 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 4.750000
+; i=77, idx=77 fp=004d fp_whole=0004, fp_fract=000d, printableFp=; 4.812500, fp_bits=01001101 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 4.812500
+; i=78, idx=78 fp=004e fp_whole=0004, fp_fract=000e, printableFp=; 4.875000, fp_bits=01001110 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 4.875000
+; i=79, idx=79 fp=004f fp_whole=0004, fp_fract=000f, printableFp=; 4.937500, fp_bits=01001111 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 4.937500
+; i=80, idx=80 fp=0050 fp_whole=0005, fp_fract=0000, printableFp=; 5.000000, fp_bits=01010000 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 5.000000
+; i=81, idx=81 fp=0051 fp_whole=0005, fp_fract=0001, printableFp=; 5.062500, fp_bits=01010001 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 5.062500
+; i=82, idx=82 fp=0052 fp_whole=0005, fp_fract=0002, printableFp=; 5.125000, fp_bits=01010010 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 5.125000
+; i=83, idx=83 fp=0053 fp_whole=0005, fp_fract=0003, printableFp=; 5.187500, fp_bits=01010011 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 5.187500
+; i=84, idx=84 fp=0054 fp_whole=0005, fp_fract=0004, printableFp=; 5.250000, fp_bits=01010100 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 5.250000
+; i=85, idx=85 fp=0055 fp_whole=0005, fp_fract=0005, printableFp=; 5.312500, fp_bits=01010101 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 5.312500
+; i=86, idx=86 fp=0056 fp_whole=0005, fp_fract=0006, printableFp=; 5.375000, fp_bits=01010110 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 5.375000
+; i=87, idx=87 fp=0057 fp_whole=0005, fp_fract=0007, printableFp=; 5.437500, fp_bits=01010111 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 5.437500
+; i=88, idx=88 fp=0058 fp_whole=0005, fp_fract=0008, printableFp=; 5.500000, fp_bits=01011000 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 5.500000
+; i=89, idx=89 fp=0059 fp_whole=0005, fp_fract=0009, printableFp=; 5.562500, fp_bits=01011001 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 5.562500
+; i=90, idx=90 fp=005a fp_whole=0005, fp_fract=000a, printableFp=; 5.625000, fp_bits=01011010 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 5.625000
+; i=91, idx=91 fp=005b fp_whole=0005, fp_fract=000b, printableFp=; 5.687500, fp_bits=01011011 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 5.687500
+; i=92, idx=92 fp=005c fp_whole=0005, fp_fract=000c, printableFp=; 5.750000, fp_bits=01011100 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 5.750000
+; i=93, idx=93 fp=005d fp_whole=0005, fp_fract=000d, printableFp=; 5.812500, fp_bits=01011101 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 5.812500
+; i=94, idx=94 fp=005e fp_whole=0005, fp_fract=000e, printableFp=; 5.875000, fp_bits=01011110 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 5.875000
+; i=95, idx=95 fp=005f fp_whole=0005, fp_fract=000f, printableFp=; 5.937500, fp_bits=01011111 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 5.937500
+; i=96, idx=96 fp=0060 fp_whole=0006, fp_fract=0000, printableFp=; 6.000000, fp_bits=01100000 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 6.000000
+; i=97, idx=97 fp=0061 fp_whole=0006, fp_fract=0001, printableFp=; 6.062500, fp_bits=01100001 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 6.062500
+; i=98, idx=98 fp=0062 fp_whole=0006, fp_fract=0002, printableFp=; 6.125000, fp_bits=01100010 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 6.125000
+; i=99, idx=99 fp=0063 fp_whole=0006, fp_fract=0003, printableFp=; 6.187500, fp_bits=01100011 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 6.187500
+; i=100, idx=100 fp=0064 fp_whole=0006, fp_fract=0004, printableFp=; 6.250000, fp_bits=01100100 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 6.250000
+; i=101, idx=101 fp=0065 fp_whole=0006, fp_fract=0005, printableFp=; 6.312500, fp_bits=01100101 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 6.312500
+; i=102, idx=102 fp=0066 fp_whole=0006, fp_fract=0006, printableFp=; 6.375000, fp_bits=01100110 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 6.375000
+; i=103, idx=103 fp=0067 fp_whole=0006, fp_fract=0007, printableFp=; 6.437500, fp_bits=01100111 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 6.437500
+; i=104, idx=104 fp=0068 fp_whole=0006, fp_fract=0008, printableFp=; 6.500000, fp_bits=01101000 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 6.500000
+; i=105, idx=105 fp=0069 fp_whole=0006, fp_fract=0009, printableFp=; 6.562500, fp_bits=01101001 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 6.562500
+; i=106, idx=106 fp=006a fp_whole=0006, fp_fract=000a, printableFp=; 6.625000, fp_bits=01101010 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 6.625000
+; i=107, idx=107 fp=006b fp_whole=0006, fp_fract=000b, printableFp=; 6.687500, fp_bits=01101011 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 6.687500
+; i=108, idx=108 fp=006c fp_whole=0006, fp_fract=000c, printableFp=; 6.750000, fp_bits=01101100 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 6.750000
+; i=109, idx=109 fp=006d fp_whole=0006, fp_fract=000d, printableFp=; 6.812500, fp_bits=01101101 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 6.812500
+; i=110, idx=110 fp=006e fp_whole=0006, fp_fract=000e, printableFp=; 6.875000, fp_bits=01101110 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 6.875000
+; i=111, idx=111 fp=006f fp_whole=0006, fp_fract=000f, printableFp=; 6.937500, fp_bits=01101111 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 6.937500
+; i=112, idx=112 fp=0070 fp_whole=0007, fp_fract=0000, printableFp=; 7.000000, fp_bits=01110000 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 7.000000
+; i=113, idx=113 fp=0071 fp_whole=0007, fp_fract=0001, printableFp=; 7.062500, fp_bits=01110001 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 7.062500
+; i=114, idx=114 fp=0072 fp_whole=0007, fp_fract=0002, printableFp=; 7.125000, fp_bits=01110010 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 7.125000
+; i=115, idx=115 fp=0073 fp_whole=0007, fp_fract=0003, printableFp=; 7.187500, fp_bits=01110011 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 7.187500
+; i=116, idx=116 fp=0074 fp_whole=0007, fp_fract=0004, printableFp=; 7.250000, fp_bits=01110100 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 7.250000
+; i=117, idx=117 fp=0075 fp_whole=0007, fp_fract=0005, printableFp=; 7.312500, fp_bits=01110101 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 7.312500
+; i=118, idx=118 fp=0076 fp_whole=0007, fp_fract=0006, printableFp=; 7.375000, fp_bits=01110110 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 7.375000
+; i=119, idx=119 fp=0077 fp_whole=0007, fp_fract=0007, printableFp=; 7.437500, fp_bits=01110111 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 7.437500
+; i=120, idx=120 fp=0078 fp_whole=0007, fp_fract=0008, printableFp=; 7.500000, fp_bits=01111000 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 7.500000
+; i=121, idx=121 fp=0079 fp_whole=0007, fp_fract=0009, printableFp=; 7.562500, fp_bits=01111001 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 7.562500
+; i=122, idx=122 fp=007a fp_whole=0007, fp_fract=000a, printableFp=; 7.625000, fp_bits=01111010 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 7.625000
+; i=123, idx=123 fp=007b fp_whole=0007, fp_fract=000b, printableFp=; 7.687500, fp_bits=01111011 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 7.687500
+; i=124, idx=124 fp=007c fp_whole=0007, fp_fract=000c, printableFp=; 7.750000, fp_bits=01111100 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 7.750000
+; i=125, idx=125 fp=007d fp_whole=0007, fp_fract=000d, printableFp=; 7.812500, fp_bits=01111101 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 7.812500
+; i=126, idx=126 fp=007e fp_whole=0007, fp_fract=000e, printableFp=; 7.875000, fp_bits=01111110 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 7.875000
+; i=127, idx=127 fp=007f fp_whole=0007, fp_fract=000f, printableFp=; 7.937500, fp_bits=01111111 || sq_fp=00ff, sq_fp_whole=15, sq_fp_fract=15 (0.93750000)  11111111 ==> ; 7.937500
 
-; 4.4 fixed point mode
-; whole_mask = #$f0
-; fract_mask = #$0f
 ; programmatically generated table of squares
-; 4.4 bit fixed-point
+; 4.4 fixed point mode
+wholeMask = #$f0
+fractMask = #$0f
+cStartVal = #$e0
+cStepVal  = #$02
 squares:
     DC.b $00,$00,$00,$00,$01,$01,$02,$03,$04,$05,$06,$07,$09,$0a,$0c,$0e
     DC.b $10,$12,$14,$16,$19,$1b,$1e,$21,$24,$27,$2a,$2d,$31,$34,$38,$3c

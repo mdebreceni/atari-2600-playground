@@ -62,7 +62,7 @@ mandel:
 
     ; Calculate zr + zi. 
 
-    ldy #0
+    ldy #zr
     clc
     lda zr              ; A = low(zr) 
     adc zi              ; A = low(zr + zi) 
