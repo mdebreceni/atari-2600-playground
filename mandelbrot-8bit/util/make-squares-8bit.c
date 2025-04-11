@@ -82,6 +82,7 @@ void makeDasmData(uint16_t *squaresTable, uint16_t count, char* label, uint16_t 
     if(orgAddr != 0xffff) {
         printf("    ORG $%04x\n", orgAddr);
     }
+
     while(offset < count) {
         if(offset % words_per_row == 0) {
             printf("\n    DC.b ");

@@ -17,6 +17,7 @@ mandelByteCount = 2 * rows
 scanlines_per_row = 6
 tim64_clocks_per_row = 7
 
+
 TASK_IDLE      = $03
 TASK_ITERATE   = $01
 TASK_UPDATEPF  = $02
@@ -328,7 +329,6 @@ nextMandelCol:   ; advance to next colum (i axis). Advance Ci by one step. Wrapa
     lda #$00
     sta zr
     sta zi
-
     POP_REGISTERS
     rts
     
