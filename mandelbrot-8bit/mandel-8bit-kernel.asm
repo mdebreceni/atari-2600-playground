@@ -9,7 +9,7 @@
     processor 6502
 
     INCLUDE "squares-8bit.asm"
-;mandel:
+; mandel:
     PUSH_REGISTERS
     lda #GREEN
     sta COLUBK
@@ -20,7 +20,9 @@
     lda #5
     sta row
 */
-    lda #1
+    clc
+    lda row
+    adc col
     sta iterations
 
     lda #0

@@ -10,12 +10,12 @@
 
 	processor 6502
 	include "vcs.h"
-MAX_ITERATIONS = 30
-rows = 25  ; number of rows to render (two playfield bytes per row)
+MAX_ITERATIONS = 200
+rows = 32  ; number of rows to render (two playfield bytes per row)
 cols = 16  ; number of columns to render (half of a mirrored playfield using PF1 and PF2- 16 bits)
 mandelByteCount = 2 * rows
-scanlines_per_row = 6
-tim64_clocks_per_row = 7
+scanlines_per_row = 5
+tim64_clocks_per_row = 6
 
 
 TASK_IDLE      = $03
@@ -65,11 +65,11 @@ pfBitMask ds.b 1          ; bit number of playfield to turn on
 ;    ORG $f000
 ;    include "squares-8bit.asm"
     SEG CODE
-    ORG $f800
+    ORG $f000
     include "mandel-8bit-kernel.asm"
 
-pf1SetBitMask dc.b $01, $02, $04, $08, $10, $20, $40, $80
-pf2SetBitMask dc.b $80, $40, $20, $10, $08, $04, $02, $01
+pf1SetBitMask dc.b $80, $40, $20, $10, $08, $04, $02, $01
+pf2SetBitMask dc.b $01, $02, $04, $08, $10, $20, $40, $80
 
 reset:
 	; clear RAM and all TIA registers
@@ -203,10 +203,10 @@ updatePfBits:
     bcs .updatePF2    ; equal or greater than 8 -> we are in PF2
 .updatePF1:          ; PF1:  col 01234567 --> bit 76543210
     ; col 0 -> bit 7, col 1 -> bit 6, etc
-    lda #7
-    SEC
-    sbc col          ; 7 - col -> bit number to flip.  We'll put this in X, since Y is taken
-    tax            
+    ldx col
+    ; SEC
+    ; sbc col          ; 7 - col -> bit number to flip.  We'll put this in X, since Y is taken
+    ; tax            
     lda pf1SetBitMask,x  ; look up a bit mask that enables the selected bit
     sta pfBitMask
 .setOrClearPF1
@@ -220,11 +220,11 @@ updatePfBits:
     sta mandelBytes,Y
     jmp .bailOutUpdateBits
 .clearBitPF1
-    lda pfBitMask          ; should start with only 1 bit set
-    eor #$FF           ; invert all bits
-    and mandelBytes,Y  ; clear only the bit that is off
-    sta mandelBytes,Y
-    jmp .bailOutUpdateBits
+    ;lda pfBitMask          ; should start with only 1 bit set
+    ; eor #$FF           ; invert all bits
+    ; and mandelBytes,Y  ; clear only the bit that is off
+    ; sta mandelBytes,Y
+    ; jmp .bailOutUpdateBits
 
 .updatePF2:          ;  PF2:   col 89abcdef --> bit 01234567
     iny               ; we want the mandelByte after PF1 for this row
@@ -247,10 +247,10 @@ updatePfBits:
     sta mandelBytes,Y
     jmp .bailOutUpdateBits
 .clearBitPF2
-    lda pfBitMask
-    eor #$FF
-    and mandelBytes,Y
-    sta mandelBytes,Y
+    ; lda pfBitMask
+    ; eor #$FF
+    ; and mandelBytes,Y
+    ; sta mandelBytes,Y
     jmp .bailOutUpdateBits
 
 .bailOutUpdateBits
@@ -266,12 +266,12 @@ initMandelVars:     ;TODO
     sta col
 
 
-    lda #cStartVal
+    lda #crStartVal
     sta crStart
     sta cr
 
 ; ciStart ds.w  ;
-    lda #cStartVal
+    lda #ciStartVal
     sta ciStart
     sta ci
 
