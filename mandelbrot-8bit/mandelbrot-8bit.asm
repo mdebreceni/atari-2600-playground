@@ -18,7 +18,7 @@ scanlines_per_row = 5
 tim64_clocks_per_row = 6
 
 
-TASK_IDLE      = $03
+TASK_IDLE      = $00
 TASK_ITERATE   = $01
 TASK_UPDATEPF  = $02
 TASK_SETUP_NEXT_ITERATION = $03
@@ -211,7 +211,7 @@ updatePfBits:
     sta pfBitMask
 .setOrClearPF1
     lda iterations
-    and #01
+    ;and #01
     cmp #0
     beq .clearBitPF1
 .setBitPF1
@@ -238,7 +238,7 @@ updatePfBits:
 
 .setOrClearPF2
     lda iterations
-    and #01
+    ;and #01
     cmp #0
     beq .clearBitPF2
 .setBitPF2
@@ -359,7 +359,7 @@ runActiveTask:
     cmp #TASK_ITERATE
     bne .checkTask_updatePF
     jsr runNextIter
-    lda #keepIterating
+    lda keepIterating
     cmp #1
     beq .runActiveTask_bailout
     lda #TASK_UPDATEPF
