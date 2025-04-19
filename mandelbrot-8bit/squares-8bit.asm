@@ -259,9 +259,9 @@
 ; 4.4 fixed point mode
 wholeMask = #$f0
 fractMask = #$0f
-crStartVal = #$e0
-ciStartVal = #$e0
-cStepVal  = #$02
+crStartVal = #$e9
+ciStartVal = #$f0
+cStepVal  = #$01
 squares:
     DC.b $00,$00,$00,$00,$01,$01,$02,$03,$04,$05,$06,$07,$09,$0a,$0c,$0e
     DC.b $10,$12,$14,$16,$19,$1b,$1e,$21,$24,$27,$2a,$2d,$31,$34,$38,$3c
