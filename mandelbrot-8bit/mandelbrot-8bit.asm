@@ -10,7 +10,7 @@
 
 	processor 6502
 	include "vcs.h"
-MAX_ITERATIONS = 200
+MAX_ITERATIONS = 120
 rows = 32  ; number of rows to render (two playfield bytes per row)
 cols = 16  ; number of columns to render (half of a mirrored playfield using PF1 and PF2- 16 bits)
 mandelByteCount = 2 * rows
@@ -61,9 +61,6 @@ pfBitMask ds.b 1          ; bit number of playfield to turn on
 
 ;==============
 
-;    SEG squares
-;    ORG $f000
-;    include "squares-8bit.asm"
     SEG CODE
     ORG $f000
     include "mandel-8bit-kernel.asm"
