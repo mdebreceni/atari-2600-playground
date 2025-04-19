@@ -9,27 +9,29 @@
     processor 6502
 
     INCLUDE "squares-8bit.asm"
-;mandel:
-    PUSH_REGISTERS
-    lda #GREEN
-    sta COLUBK
+; mandel:
+;     PUSH_REGISTERS
+;     lda #GREEN
+;     sta COLUBK
 
-    /*
-    lda #3
-    sta col
-    lda #5
-    sta row
-*/
-    lda #1
-    sta iterations
+;     /*
+;     lda #3
+;     sta col
+;     lda #5
+;     sta row
+; */
+;     clc
+;     lda row
+;     adc col
+;     sta iterations
 
-    lda #0
-    sta keepIterating
+;     lda #0
+;     sta keepIterating
 
-    lda #BLUE
-    sta COLUBK
-    POP_REGISTERS
-    rts
+;     lda #BLUE
+;     sta COLUBK
+;     POP_REGISTERS
+;     rts
 mandel:
     ; push registers and state - save on stack
     PUSH_REGISTERS
@@ -62,7 +64,7 @@ mandel:
 
     ; Calculate zr + zi. 
 
-    ldy #zr
+    ;ldy zr
     clc
     lda zr              ; A = low(zr) 
     adc zi              ; A = low(zr + zi) 
