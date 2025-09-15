@@ -15,7 +15,7 @@ rows = 32  ; number of rows to render (two playfield bytes per row)
 cols = 16  ; number of columns to render (half of a mirrored playfield using PF1 and PF2- 16 bits)
 mandelByteCount = 2 * rows
 scanlines_per_row = 5
-tim64_clocks_per_row = 6
+tim64_clocks_per_row = 7
 
 
 TASK_IDLE      = $00
@@ -32,6 +32,7 @@ GREEN          = $ca
     ORG $80
 
 mandelBytes  ds mandelByteCount
+
 zr  ds.b 1
 zi  ds.b 1
 cr  ds.b 1
@@ -47,6 +48,7 @@ zr2 ds.b 1
 ; starting points for Cr / Ci
 crStart ds.b 1 ;
 ciStart ds.b 1 ; 
+
 
 cStep ds.b   1 ; increment between iterations (both c real and c imaginary)
 
@@ -148,11 +150,11 @@ drawMandelBytes:
     
 renderRowLoop:
     lda INTIM
-    bne renderRowLoop
+    bne renderRowLoop    ; consume rest of INTIM timer
 renderRowCountUp:
     lda #0
-    sta WSYNC
-    REPEAT scanlines_per_row
+    sta WSYNC  ; wait for rest of line
+    REPEAT scanlines_per_row ; count up more lines
     inx
     REPEND
     cpy #mandelByteCount
@@ -319,10 +321,12 @@ nextMandelCol:   ; advance to next colum (i axis). Advance Ci by one step. Wrapa
     ;   sta col
     ; note that our mandelbrot is rotated 90 degrees to take advantage of a mirrored playfield
     ; therefore each column means we increment in the imaginary direction
-    lda ci
-    CLC
-    adc cStep   ; update c to next step in imaginary direction
-    sta ci
+;     lda ci
+;     CLC
+;     ;adc cStep   ; update c to next step in imaginary direction
+;     adc #1
+;     sta ci
+    inc ci
     lda #$00
     sta zr
     sta zi
@@ -340,10 +344,12 @@ wrapAround:   ; move cursor back to start of row, advance to next row.  Reset Ci
 
 nextMandelRow:  ; move cursor to next row
     inc row
-    lda cr      ; add one step to c (lo and then hi)
-    clc
-    adc cStep
-    sta cr
+    inc cr
+:     lda cr      ; add one step to c (lo and then hi)
+;     clc
+;     ;adc cStep
+;     adc #1
+;     sta cr
 
     POP_REGISTERS
     rts  
