@@ -84,6 +84,9 @@ init:
     sta CTRLPF
     ldy #0
     lda #0
+    clc
+    cld
+    adc #0
 initMandelBytes:
     ; ora #$f0
     lda #0
@@ -321,12 +324,10 @@ nextMandelCol:   ; advance to next colum (i axis). Advance Ci by one step. Wrapa
     ;   sta col
     ; note that our mandelbrot is rotated 90 degrees to take advantage of a mirrored playfield
     ; therefore each column means we increment in the imaginary direction
-;     lda ci
-;     CLC
-;     ;adc cStep   ; update c to next step in imaginary direction
-;     adc #1
-;     sta ci
-    inc ci
+    lda ci
+    CLC
+    adc cStep   ; update c to next step in imaginary direction
+    sta ci
     lda #$00
     sta zr
     sta zi
@@ -344,12 +345,10 @@ wrapAround:   ; move cursor back to start of row, advance to next row.  Reset Ci
 
 nextMandelRow:  ; move cursor to next row
     inc row
-    inc cr
-:     lda cr      ; add one step to c (lo and then hi)
-;     clc
-;     ;adc cStep
-;     adc #1
-;     sta cr
+    lda cr      ; add one step to c (lo and then hi)
+    clc
+    adc cStep
+    sta cr
 
     POP_REGISTERS
     rts  
