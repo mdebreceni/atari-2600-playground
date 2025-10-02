@@ -15,7 +15,7 @@ rows = 32  ; number of rows to render (two playfield bytes per row)
 cols = 16  ; number of columns to render (half of a mirrored playfield using PF1 and PF2- 16 bits)
 mandelByteCount = 2 * rows
 scanlines_per_row = 5
-tim64_clocks_per_row = 6
+tim64_clocks_per_row = 7
 
 
 TASK_IDLE      = $00
@@ -32,6 +32,7 @@ GREEN          = $ca
     ORG $80
 
 mandelBytes  ds mandelByteCount
+
 zr  ds.b 1
 zi  ds.b 1
 cr  ds.b 1
@@ -47,6 +48,7 @@ zr2 ds.b 1
 ; starting points for Cr / Ci
 crStart ds.b 1 ;
 ciStart ds.b 1 ; 
+
 
 cStep ds.b   1 ; increment between iterations (both c real and c imaginary)
 
@@ -82,6 +84,9 @@ init:
     sta CTRLPF
     ldy #0
     lda #0
+    clc
+    cld
+    adc #0
 initMandelBytes:
     ; ora #$f0
     lda #0
@@ -148,11 +153,11 @@ drawMandelBytes:
     
 renderRowLoop:
     lda INTIM
-    bne renderRowLoop
+    bne renderRowLoop    ; consume rest of INTIM timer
 renderRowCountUp:
     lda #0
-    sta WSYNC
-    REPEAT scanlines_per_row
+    sta WSYNC  ; wait for rest of line
+    REPEAT scanlines_per_row ; count up more lines
     inx
     REPEND
     cpy #mandelByteCount

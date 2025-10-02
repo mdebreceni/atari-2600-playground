@@ -13,8 +13,8 @@
 mandel:
     ; push registers and state - save on stack
     PUSH_REGISTERS
-    lda #ORANGE
-    sta COLUBK
+;    lda #ORANGE
+;    sta COLUBK
     ldy #1
     ; Calculate zr^2 + zi^2. 
     clc
@@ -86,10 +86,10 @@ mandel:
     jmp .return
 
 .return:
-    PHA
-    lda #BLUE
-    sta COLUBK
-    PLA
+;    PHA
+;    lda #BLUE
+;    sta COLUBK
+;    PLA
 
     ; restore saved registers and state from stack
     POP_REGISTERS
