@@ -14,19 +14,23 @@ MAX_ITERATIONS = 120
 rows = 32  ; number of rows to render (two playfield bytes per row)
 cols = 16  ; number of columns to render (half of a mirrored playfield using PF1 and PF2- 16 bits)
 mandelByteCount = 2 * rows
-scanlines_per_row = 5
+scanlines_per_row = 6
 tim64_clocks_per_row = 7
-
 
 TASK_IDLE      = $00
 TASK_ITERATE   = $01
 TASK_UPDATEPF  = $02
 TASK_SETUP_NEXT_ITERATION = $03
 
+BLACK          = $00
 BLUE           = $9a         ;              define symbol for TIA color (NTSC)
 ORANGE         = $2c
 GREEN          = $ca
 
+HD_COLOR       = BLACK
+FG_COLOR       = BLUE
+BG_COLOR       = BLACK
+FT_COLOR       = BLACK
 
     SEG.U variables
     ORG $80
@@ -97,7 +101,7 @@ initMandelBytes:
     bne initMandelBytes
 
     jsr initMandelVars
-    lda #TASK_ITERATE
+    lda #TASK_UPDATEPF
     sta activeTask
 
 
@@ -108,9 +112,14 @@ startFrame:
 	sta VBLANK               ;              store (a) into the TIA VBLANK register
 	lda #2                   ;              load the value 2 into (a). 
 	sta VSYNC                ;              store (a) into TIA VSYNC register to turn on vsync
-	sta WSYNC                ;              write any value to TIA WSYNC register to wait for hsync
-	lda #BLUE                ;              load the value from the symbol 'blue' into (a)
+   	lda #HD_COLOR            ;              select header color (a)
 	sta COLUBK               ;              store (a) into the TIA background color register
+    lda #FG_COLOR
+    sta COLUPF
+    sta COLUP0
+    sta COLUP1
+
+	sta WSYNC                ;              write any value to TIA WSYNC register to wait for hsync
 ;---------------------------------------
 	sta WSYNC
 ;---------------------------------------
@@ -128,8 +137,7 @@ verticalBlank:
 	cpx #37                  ;              compare the value in (x) to the immeadiate value of 37
 	bne verticalBlank        ;              branch to 'verticalBlank' label if compare not equal
 
-
-    lda #BLUE
+    lda #BG_COLOR
     sta COLUBK
 	; generate 192 lines of playfield
 
@@ -137,9 +145,8 @@ startMandelBytes:
     ldx #0
     ldy #0
 drawMandelBytes:
-    lda #0
-	sta WSYNC
-    sta PF0
+    lda #$f0
+	sta PF0
     lda mandelBytes,y
     sta PF1
     iny
@@ -155,29 +162,33 @@ renderRowLoop:
     lda INTIM
     bne renderRowLoop    ; consume rest of INTIM timer
 renderRowCountUp:
-    lda #0
-    sta WSYNC  ; wait for rest of line
     REPEAT scanlines_per_row ; count up more lines
     inx
     REPEND
+    lda #0
+    sta WSYNC  ; wait for rest of line
     cpy #mandelByteCount
     bne drawMandelBytes
 
 startFooter:
-    lda #ORANGE
-    sta COLUBK
     lda #0
     sta PF0
     sta PF1
     sta PF2
+    lda #FT_COLOR
+    sta COLUBK
+    
 draw_footer:
+    cpx #192
+    beq startOverscan  
     lda #0
     sta WSYNC
     inx 
-    cpx #192
-    bne draw_footer
+    jmp draw_footer
 
 startOverscan:
+    lda #FT_COLOR
+    sta COLUBK
 	; end of playfield - turn on vertical blank
     lda #%01000010
     sta VBLANK
